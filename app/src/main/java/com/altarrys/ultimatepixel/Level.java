@@ -76,19 +76,19 @@ public class Level
 	//-----------------------------------------------------------------------------------------------------------------------------
 	private int getRandomColor_H()
 	{
-		int choice = R.color.DarkBlue;
+		int choice = R.color.MediumBlue;
 		int rand = (int) (Math.random()*(double) m_nbPixelColorTotal);
 
 		switch (rand)
 		{
 			case 0:
-				choice = R.color.DarkBlue;
+				choice = R.color.MediumBlue;
 				break;
 			case 1:
-				choice = R.color.DarkRed;
+				choice = R.color.MediumRed;
 				break;
 			case 2:
-				choice = R.color.DarkGreen;
+				choice = R.color.MediumGreen;
 				break;
 			case 3:
 				choice = R.color.DarkYellow;
@@ -116,19 +116,19 @@ public class Level
     //-----------------------------------------------------------------------------------------------------------------------------
     private int getRandomColor_N()
     {
-    	int choice = R.color.DarkBlue;
+    	int choice = R.color.MediumBlue;
     	int rand = (int) (Math.random()*(double) m_nbPixelColorTotal);
   
     	switch (rand)
     	{
     	case 0:
-    		choice = R.color.DarkBlue;
+    		choice = R.color.MediumBlue;
     		break;
     	case 1:
-    		choice = R.color.DarkRed;
+    		choice = R.color.MediumRed;
     		break;
     	case 2:
-    		choice = R.color.DarkGreen;
+    		choice = R.color.MediumGreen;
     		break;
     	}
     	
@@ -254,9 +254,9 @@ public class Level
 	{
 		m_allAdventureColors = new ArrayList<Integer>();
 
-		m_allAdventureColors.add(R.color.DarkBlue);
-		m_allAdventureColors.add(R.color.DarkRed);
-		m_allAdventureColors.add(R.color.DarkGreen);
+		m_allAdventureColors.add(R.color.MediumBlue);
+		m_allAdventureColors.add(R.color.MediumRed);
+		m_allAdventureColors.add(R.color.MediumGreen);
 		m_allAdventureColors.add(R.color.Yellow);
 		m_allAdventureColors.add(R.color.Cyan);
 		m_allAdventureColors.add(R.color.Grey);

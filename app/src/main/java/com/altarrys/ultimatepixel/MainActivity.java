@@ -65,10 +65,9 @@ public class MainActivity extends Activity
 			View rootView = inflater.inflate(R.layout.fragment_main, container,	false);
 			
 			// Set OnClickListener for all buttons
-			((Button) rootView.findViewById(R.id.modeAdventureButton)).setOnClickListener(this);
+			((Button) rootView.findViewById(R.id.playButton)).setOnClickListener(this);
 			((Button) rootView.findViewById(R.id.modeArcadeButton)).setOnClickListener(this);
 			((Button) rootView.findViewById(R.id.ScoreButton)).setOnClickListener(this);
-			((Button) rootView.findViewById(R.id.ExitButton)).setOnClickListener(this);
 			
 			return rootView;
 		}
@@ -76,7 +75,7 @@ public class MainActivity extends Activity
 		@Override
 		public void onClick(View v) 
 		{
-			if (v.getId() == R.id.modeAdventureButton)
+			if (v.getId() == R.id.playButton)
 			{
 				Intent intent = new Intent(getActivity(), ALevelChoice.class);
 
@@ -105,10 +104,6 @@ public class MainActivity extends Activity
 				Intent intent = new Intent(getActivity(), AScore.class);
 				
 				startActivity(intent);
-			}
-			else if (v.getId() == R.id.ExitButton)
-			{
-				getActivity().finish();
 			}
 		}
 	}

@@ -3,19 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:background="@drawable/background_circulargradiant"
     tools:context="com.altarrys.ultimatepixel.MainActivity$PlaceholderFragment" >
 
-    
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:paddingBottom="20dp">
+
+        <ImageView
+            android:id="@+id/titleImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/pixelultimatelogo"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
 
         <Button
-            android:id="@+id/modeAdventureButton"
+            android:id="@+id/playButton"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,7 +44,7 @@
             android:shadowDx="0.0"
             android:shadowDy="3.0"
             android:shadowRadius="20.0"
-            android:text="@string/PlayClassic"
+            android:text="@string/PlayButtonText"
             android:layout_margin="10dp"
             android:textSize="@dimen/medium_font"
             android:textColor="@color/White"
@@ -61,24 +81,8 @@
             android:layout_margin="10dp"
             android:text="@string/Score"
             android:textSize="@dimen/medium_font"
-            android:textColor="@color/White"
-             />
-
-        <Button
-            android:id="@+id/ExitButton"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/greybackground_blackborder"
-            android:shadowColor="@color/White"
-            android:shadowDx="0.0"
-            android:shadowDy="3.0"
-            android:shadowRadius="20.0"
-            android:text="@string/Exit"
-            android:layout_margin="10dp"
-            android:textSize="@dimen/medium_font"
-            android:textColor="@color/White"
-            android:textStyle="bold" />
+            android:textColor="@color/White"/>
 
     </LinearLayout>
+
 </LinearLayout>

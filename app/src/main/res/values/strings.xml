@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="FirstTitle">Ultimate Pixel</string>
-    <string name="PlayClassic">Classic</string>
+    <string name="PlayButtonText">Play</string>
     <string name="PlayArcade">Arcade</string>
     <string name="title_activity_agame_engine">Ultimate Pixel</string>
     <string name="askedColor">Target : </string>
