@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ultimate Pixel v2</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="FirstTitle">Ultimate Pixel</string>
+    <string name="PlayClassic">Classic</string>
+    <string name="PlayArcade">Arcade</string>
+    <string name="title_activity_agame_engine">Ultimate Pixel</string>
+    <string name="askedColor">Target : </string>
+    <string name="dfvictory">Victory!!</string>
+    <string name="dfvictoryscore">Your score is </string>
+    <string name="timeelapsedzero">0</string>
+    <string name="timeelapsed">Time Elapsed: </string>
+    <string name="timeremaining">Time Remaining: </string>
+    <string name="dfcontinue">Continue</string>
+    <string name="Score">Score</string>
+    <string name="Exit">Exit</string>
+    <string name="Normal">Normal</string>
+    <string name="Hard">Hard</string>
+    <string name="Extreme">Extreme</string>
+    <string name="classicscore">Best classic scores </string>
+    <string name="classicscorenormal">Normal \n \n</string>
+    <string name="classicscorehard">Hard \n \n</string>
+    <string name="classicscoreextreme">Extreme \n \n</string>
+    <string name="arcadescore">Best arcade scores </string>
+    <string name="arcadescorenormal">Normal \n \n</string>
+    <string name="arcadescorehard">Hard \n \n</string>
+    <string name="arcadescoreextreme">Extreme \n \n</string>
+    <string name="title_activity_alevel_choice">Level Choice</string>
+
+</resources>

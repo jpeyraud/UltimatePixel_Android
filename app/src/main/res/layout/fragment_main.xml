@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context="com.altarrys.ultimatepixel.MainActivity$PlaceholderFragment" >
+
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/modeAdventureButton"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bluebackground_blackborder"
+            android:shadowColor="@color/White"
+            android:shadowDx="0.0"
+            android:shadowDy="3.0"
+            android:shadowRadius="20.0"
+            android:text="@string/PlayClassic"
+            android:layout_margin="10dp"
+            android:textSize="@dimen/medium_font"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/modeArcadeButton"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/redbackground_blackborder"
+            android:shadowColor="@color/White"
+            android:shadowDx="0.0"
+            android:shadowDy="3.0"
+            android:shadowRadius="20.0"
+            android:text="@string/PlayArcade"
+            android:layout_margin="10dp"
+            android:textSize="@dimen/medium_font"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/ScoreButton"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/greenbackground_blackborder"
+            android:shadowColor="@color/White"
+            android:shadowDx="0.0"
+            android:shadowDy="3.0"
+            android:shadowRadius="20.0"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:text="@string/Score"
+            android:textSize="@dimen/medium_font"
+            android:textColor="@color/White"
+             />
+
+        <Button
+            android:id="@+id/ExitButton"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/greybackground_blackborder"
+            android:shadowColor="@color/White"
+            android:shadowDx="0.0"
+            android:shadowDy="3.0"
+            android:shadowRadius="20.0"
+            android:text="@string/Exit"
+            android:layout_margin="10dp"
+            android:textSize="@dimen/medium_font"
+            android:textColor="@color/White"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</LinearLayout>
