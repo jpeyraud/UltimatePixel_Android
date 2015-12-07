@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -52,7 +54,7 @@ public class MainActivity extends Activity
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment implements OnClickListener 
+	public static class PlaceholderFragment extends Fragment implements View.OnTouchListener
 	{
 		public PlaceholderFragment() 
 		{
@@ -65,46 +67,71 @@ public class MainActivity extends Activity
 			View rootView = inflater.inflate(R.layout.fragment_main, container,	false);
 			
 			// Set OnClickListener for all buttons
-			((Button) rootView.findViewById(R.id.playButton)).setOnClickListener(this);
-			((Button) rootView.findViewById(R.id.modeArcadeButton)).setOnClickListener(this);
-			((Button) rootView.findViewById(R.id.ScoreButton)).setOnClickListener(this);
+			((Button) rootView.findViewById(R.id.playButton)).setOnTouchListener(this);
+			((Button) rootView.findViewById(R.id.modeArcadeButton)).setOnTouchListener(this);
+			((Button) rootView.findViewById(R.id.ScoreButton)).setOnTouchListener(this);
 			
 			return rootView;
 		}
 
 		@Override
-		public void onClick(View v) 
+		public boolean onTouch(View v, MotionEvent event)
 		{
-			if (v.getId() == R.id.playButton)
+			Log.d("TAG", "on press");
+			if(event.getAction() == MotionEvent.ACTION_DOWN)
 			{
-				Intent intent = new Intent(getActivity(), ALevelChoice.class);
+				// put on pressed background on press
+				if (v.getId() == R.id.playButton)
+					((Button) getActivity().findViewById(R.id.playButton)).setBackgroundResource(R.drawable.blue_pressed_button);
+				else if (v.getId() == R.id.modeArcadeButton)
+					((Button) getActivity().findViewById(R.id.modeArcadeButton)).setBackgroundResource(R.drawable.red_pressed_button);
+				else if (v.getId() == R.id.ScoreButton)
+					((Button) getActivity().findViewById(R.id.ScoreButton)).setBackgroundResource(R.drawable.green_pressed_button);
+			}
+			else if (event.getAction() == MotionEvent.ACTION_UP)
+			{
+				// come back to original background on release
+				((Button) getActivity().findViewById(R.id.playButton)).setBackgroundResource(R.drawable.blue_button);
+				((Button) getActivity().findViewById(R.id.modeArcadeButton)).setBackgroundResource(R.drawable.red_button);
+				((Button) getActivity().findViewById(R.id.ScoreButton)).setBackgroundResource(R.drawable.green_button);
 
-				// Add the index of the checked hardness to the intent
-				//intent.putExtra("hardness", ((RadioGroup)getActivity().findViewById(R.id.Hardness)).getCheckedRadioButtonId());
-				
-				// Add the game mode to the intent
-				//intent.putExtra("gamemode", "classic");
-				
-				startActivity(intent);
+				if (v.getId() == R.id.playButton)
+				{
+					Intent intent = new Intent(getActivity(), ALevelChoice.class);
+
+					// Add the index of the checked hardness to the intent
+					//intent.putExtra("hardness", ((RadioGroup)getActivity().findViewById(R.id.Hardness)).getCheckedRadioButtonId());
+
+					// Add the game mode to the intent
+					//intent.putExtra("gamemode", "classic");
+
+					startActivity(intent);
+					return true;
+				}
+				else if (v.getId() == R.id.modeArcadeButton)
+				{
+					Intent intent = new Intent(getActivity(), AGameEngine.class);
+
+					// Add the index of the checked hardness to the intent
+					intent.putExtra("hardness", "normal");//((RadioGroup)getActivity().findViewById(R.id.Hardness)).getCheckedRadioButtonId());
+
+					// Add the game mode to the intent
+					intent.putExtra("gamemode", "arcade");
+
+					startActivity(intent);
+				}
+				else if (v.getId() == R.id.ScoreButton)
+				{
+					Intent intent = new Intent(getActivity(), AScore.class);
+
+					startActivity(intent);
+				}
 			}
-			else if (v.getId() == R.id.modeArcadeButton)
-			{
-				Intent intent = new Intent(getActivity(), AGameEngine.class);
-				
-				// Add the index of the checked hardness to the intent
-				intent.putExtra("hardness", "normal");//((RadioGroup)getActivity().findViewById(R.id.Hardness)).getCheckedRadioButtonId());
-				
-				// Add the game mode to the intent
-				intent.putExtra("gamemode", "arcade");
-				
-				startActivity(intent);
-			}
-			else if (v.getId() == R.id.ScoreButton)
-			{
-				Intent intent = new Intent(getActivity(), AScore.class);
-				
-				startActivity(intent);
-			}
+
+
+
+
+			return true;
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/level">
+
+
+
+    <ImageView
+        android:id="@+id/medal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="70dp"
+        android:maxHeight="70dp"
+        android:adjustViewBounds="true"
+        android:gravity="center"
+        android:src="@drawable/ic_launcher"
+    />
+    <TextView
+        android:id="@+id/levelName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:background="@color/White"
+        />
+
+</LinearLayout><!-- From: file:/Users/celad/Documents/Other/ultimatepixel/app/src/main/res/layout/level.xml -->

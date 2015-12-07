@@ -1,0 +1,42 @@
+-injars /Users/celad/Documents/Other/ultimatepixel/app/build/intermediates/multi-dex/debug/allclasses.jar
+-outjars /Users/celad/Documents/Other/ultimatepixel/app/build/intermediates/multi-dex/debug/componentClasses.jar
+
+-libraryjars /Users/celad/Library/Android/sdk/build-tools/22.0.1/lib/shrinkedAndroid.jar
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn
+-printconfiguration /Users/celad/Documents/Other/ultimatepixel/app/build/intermediates/multi-dex/debug/components.flags
+
+
+-keep class null {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep class com.altarrys.ultimatepixel.MainActivity {
+    <init>();
+}
+
+-keep class com.altarrys.ultimatepixel.AGameEngine {
+    <init>();
+}
+
+-keep class com.altarrys.ultimatepixel.AScore {
+    <init>();
+}
+
+-keep class com.altarrys.ultimatepixel.ALevelChoice {
+    <init>();
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}
