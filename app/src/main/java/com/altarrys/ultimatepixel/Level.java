@@ -1,5 +1,7 @@
 package com.altarrys.ultimatepixel;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,18 +42,17 @@ public class Level
 		{
 			int color = getRandomColor();
 			m_pixelList.add(color);
-
-			// increase the counter of each color
-			m_pixelColorNumberMap.put(color, m_pixelColorNumberMap.get(color) + 1);
 		}
 		
-		m_targetPixel = getRandomColor();
+		m_targetPixel = getTargetRandomColor();
 		score = 0;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	private int getTargetRandomColor()
 	{
 		int choice = (int) (Math.random()*(double) m_nbPixelColorTotal); // care to rand = 1.0
+
+		Log.d("TAG", "target remaining : " + m_pixelColorNumberMap.get(m_allColors.get(choice)));
 
 		if (m_pixelColorNumberMap.get(m_allColors.get(choice)) == 0)
 			return getTargetRandomColor();
@@ -65,7 +66,7 @@ public class Level
 
 		int color =  m_allColors.get(choice);
 
-		// Decrement the number of the touched pixel
+		// Increment the number of the touched pixel
 		m_pixelColorNumberMap.put(color, m_pixelColorNumberMap.get(color)+1);
 
 		return color;
@@ -99,6 +100,9 @@ public class Level
     //-----------------------------------------------------------------------------------------------------------------------------
     public int pixelTouched()
     {
+		// Decrement the number of the touched pixel
+		m_pixelColorNumberMap.put(m_targetPixel, m_pixelColorNumberMap.get(m_targetPixel)-1);
+
     	// X% of chance to change target color
     	double rand =  Math.random();
     	if (rand < ((double) m_arcadePerCent)/100.0)
@@ -106,9 +110,6 @@ public class Level
      		m_targetPixel = getTargetRandomColor();
     	}
 
-		// Decrement the number of the touched pixel
-		m_pixelColorNumberMap.put(m_targetPixel, m_pixelColorNumberMap.get(m_targetPixel)-1);
-    	
     	return score++;
     }
     //-----------------------------------------------------------------------------------------------------------------------------
