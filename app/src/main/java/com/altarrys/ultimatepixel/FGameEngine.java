@@ -45,18 +45,15 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		m_pixelGridView.setAdapter(adapter);
 		m_pixelGridView.setOnTouchListener(this);
 		
-		// Diplay this target color
+		// Display this target color
 		rootView.findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
 		
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
 		parent.setM_timer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
-		
-		if(AGameEngine.GAME_MODE.equals("arcade"))
-		{
-			((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText(R.string.timeremaining);
-			((TextView)rootView.findViewById(R.id.textview_timeelapsedview)).setText(""+AGameEngine.TIME_TOT/1000);
-		}
-		
+
+		((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText(R.string.timeremaining);
+		((TextView)rootView.findViewById(R.id.textview_timeelapsedview)).setText(""+AGameEngine.TIME_TOT/1000);
+
 		return rootView;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
@@ -67,14 +64,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		if (m_isStarted == false)
 		{
 			m_isStarted = true;
-			if (AGameEngine.GAME_MODE.equals("classic"))
-			{
-				parent.startTimerThread();
-			}
-			else
-			{
-				parent.startReverseTimerThread();
-			}
+			parent.startReverseTimerThread();
 		}
 		
 		// Hand made pixel detection
@@ -88,50 +78,12 @@ public class FGameEngine extends Fragment implements OnTouchListener
         if (me.getActionMasked() == MotionEvent.ACTION_DOWN && tv !=null)
         {
         	ColorDrawable draw = (ColorDrawable) tv.getBackground();
-        	
-        	if (AGameEngine.GAME_MODE.equals("classic"))
-        	{
-        		adventureTouchHandler(draw, tv);
-        	}
-        	else if (AGameEngine.GAME_MODE.equals("arcade"))
-        	{
-        		arcadeTouchHandler(draw, tv);
-        	}
+			handleTouch(draw, tv);
         }
 		return false;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public void adventureTouchHandler(ColorDrawable draw, TextView tv)
-	{
-    	// if color of touched pixel  is the same as the target color, delete it
-    	if (draw.getColor() == getResourceTargetPixel() && tv.getAlpha() !=0)
-    	{
-    		tv.setAlpha(0);
-    		m_levelManager.deleteTarget();
-    	}
-
-    	// if it doesn't remain any targetPixel change target color
-    	if (!m_levelManager.isTargetPixelRemaining() && !m_levelManager.isLevelFinished())
-    	{
-    		// Modify pixel target color
-    		getActivity().findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
-    	}
-    	// if there is no remaining color, end the level
-    	else if(m_levelManager.isLevelFinished())
-    	{
-    		// Stop Timer Thread
-    		((AGameEngine) getActivity()).stopTimer();
-
-    		// Display victory pop up
-    		DFVictory dfVic = new DFVictory();
-    		dfVic.show(getFragmentManager(), "id");
-    		
-    		// Save
-    		parent.save(AGameEngine.GAME_MODE + AGameEngine.HARDNESS, parent.getM_timer().getText().toString());
-    	}
-	}
-	//-----------------------------------------------------------------------------------------------------------------------------
-	public void arcadeTouchHandler(ColorDrawable draw, TextView tv)
+	public void handleTouch(ColorDrawable draw, TextView tv)
 	{
 		// if color of touched pixel  is the same as the target color, delete it
     	if (draw.getColor() == getResourceTargetPixel())
@@ -178,7 +130,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
     public int getResourceTargetPixel()
     {
     	// Get the target color value
-    	return getResources().getColor(m_levelManager.getM_targetPixel());
+    	return getResources().getColor(m_levelManager.getTargetPixel());
     }
     //-----------------------------------------------------------------------------------------------------------------------------
     public boolean isRemainingTarget()

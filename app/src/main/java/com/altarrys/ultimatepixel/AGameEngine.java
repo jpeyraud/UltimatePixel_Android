@@ -14,7 +14,6 @@ import android.widget.TextView;
 public class AGameEngine extends Activity 
 {
 	public static long TIME_TOT = 30000;
-	public static String GAME_MODE = "";
 	public static String HARDNESS = "";
 	
 	private TextView m_timer;
@@ -37,26 +36,17 @@ public class AGameEngine extends Activity
 		// get the hardness selected before
 		Intent intent = getIntent();
 		int hardnessId = intent.getIntExtra("hardness", -2);
-		GAME_MODE = intent.getStringExtra("gamemode");
-		Log.w("MyError", GAME_MODE);
-
-		// Get the selected level name and Id
-		String levelName = intent.getStringExtra("levelName");
-		int levelId = intent.getIntExtra("levelId", -1);
-
-		// Automatically generate level caracteristics
-		generateLevel(levelId);
 
 		// Get the hardness of the level and initialize the LevelManager
-		HARDNESS = "normal";
+		HARDNESS = "hard";
+		m_colorNumber = 6;
+		m_pixelLineNumber = 6;
 		m_levelManager = new Level(Level.NORMAL_MODE, m_colorNumber, m_pixelLineNumber);
 
 		if (savedInstanceState == null) 
 		{
 			getFragmentManager().beginTransaction().add(R.id.container,  new FGameEngine(m_levelManager)).commit();
 		}
-
-		
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
@@ -116,15 +106,9 @@ public class AGameEngine extends Activity
 	{
 		SharedPreferences prefs = getSharedPreferences(MainActivity.PREFERENCES_ID, Context.MODE_PRIVATE);
 		float old = Float.parseFloat(prefs.getString(key, "0.0"));
-		
+
 		// If better
-		if (old > Float.parseFloat(val) && GAME_MODE.equals("classic"))
-		{
-			SharedPreferences.Editor editor = getSharedPreferences(MainActivity.PREFERENCES_ID,Context.MODE_PRIVATE).edit();
-			editor.putString(key,val).apply();
-		}
-		// If better
-		if (old < Float.parseFloat(val) && GAME_MODE.equals("arcade"))
+		if (old < Float.parseFloat(val))
 		{
 			SharedPreferences.Editor editor = getSharedPreferences(MainActivity.PREFERENCES_ID,Context.MODE_PRIVATE).edit();
 			editor.putString(key,val).apply();
@@ -209,7 +193,7 @@ public class AGameEngine extends Activity
 				if (res < 0.1)
 				{
 					// save score
-					GE.save(GAME_MODE+HARDNESS, ""+GE.getScore());
+					GE.save(HARDNESS, ""+GE.getScore());
 
 					DFVictoryScore dfVic = new DFVictoryScore(GE.getScore());
 			    	dfVic.show(GE.getFragmentManager(), "id");

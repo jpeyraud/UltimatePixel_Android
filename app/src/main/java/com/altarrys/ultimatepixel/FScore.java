@@ -29,25 +29,16 @@ public class FScore extends Fragment
 		m_parent = ((AScore)getActivity());
 
 		// Load scores
-		String classicScoreNormal = load("classicnormal");
-		String classicScoreHard = load("classichard");
-		String classicScoreExtreme = load("classicextreme");
 		String arcadeScoreNormal = load("arcadenormal");
 		String arcadeScoreHard = load("arcadehard");
 		String arcadeScoreExtreme = load("arcadeextreme");
 		
 		// Get all textviews to display score
-		TextView scoreClassicNormal = ((TextView)rootView.findViewById(R.id.textview_classicscorenormal));
-		TextView scoreClassicHard = ((TextView)rootView.findViewById(R.id.textview_classicscorehard));
-		TextView scoreClassicExtreme = ((TextView)rootView.findViewById(R.id.textview_classicscoreextreme));
 		TextView scoreArcadeNormal = ((TextView)rootView.findViewById(R.id.textview_arcadescorenormal));
 		TextView scoreArcadeHard = ((TextView)rootView.findViewById(R.id.textview_arcadescorehard));
 		TextView scoreArcadeExtreme = ((TextView)rootView.findViewById(R.id.textview_arcadescoreextreme));
 		
 		// Add scores to the textviews
-		scoreClassicNormal.setText(scoreClassicNormal.getText()+classicScoreNormal);
-		scoreClassicHard.setText(scoreClassicHard.getText()+classicScoreHard);
-		scoreClassicExtreme.setText(scoreClassicExtreme.getText()+classicScoreExtreme);
 		scoreArcadeNormal.setText(scoreArcadeNormal.getText()+arcadeScoreNormal);
 		scoreArcadeHard.setText(scoreArcadeHard.getText()+arcadeScoreHard);
 		scoreArcadeExtreme.setText(scoreArcadeExtreme.getText()+arcadeScoreExtreme);
