@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,7 +50,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		rootView.findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
 		
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
-		parent.setM_timer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
+		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
 
 		((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText(R.string.timeremaining);
 		((TextView)rootView.findViewById(R.id.textview_timeelapsedview)).setText(""+AGameEngine.TIME_TOT/1000);
@@ -83,18 +84,28 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		return false;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public void handleTouch(ColorDrawable draw, TextView tv)
-	{
+	public void handleTouch(ColorDrawable draw, TextView tv) {
+		int score;
+
 		// if color of touched pixel  is the same as the target color, delete it
-    	if (draw.getColor() == getResourceTargetPixel())
-    	{
-    		// Replaced the touched pixel by a random color
-    		tv.setBackgroundColor(getResources().getColor(m_levelManager.getRandomColor()));
-    		m_levelManager.pixelTouched();
-    		
-    		// Modify pixel target color
-    		getActivity().findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
-    	}
+		if (draw.getColor() == getResourceTargetPixel()) {
+			// Replaced the touched pixel by a random color
+			tv.setBackgroundColor(getResources().getColor(m_levelManager.getRandomColor()));
+			score = m_levelManager.pixelTouched();
+
+			// Modify pixel target color
+			getActivity().findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
+
+			//parent.setTimerColor(R.color.Green);
+			parent.addTime(parent.ADD_TIME - (100 * (score / 20)));
+			Log.d("TAG", ""+(parent.ADD_TIME - (100 * (score / 20))));
+
+		}
+		else
+		{
+			//parent.setTimerColor(R.color.Red);
+			parent.removeTime(parent.REMOVE_TIME);
+		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------	
 	// Inherit from "ArrayAdapter" to adapt the view to display many Buttons
@@ -132,11 +143,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
     	// Get the target color value
     	return getResources().getColor(m_levelManager.getTargetPixel());
     }
-    //-----------------------------------------------------------------------------------------------------------------------------
-    public boolean isRemainingTarget()
-    {
-    	return true;
-    }
-    //-----------------------------------------------------------------------------------------------------------------------------
-    
+	//-----------------------------------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------------------------
 }

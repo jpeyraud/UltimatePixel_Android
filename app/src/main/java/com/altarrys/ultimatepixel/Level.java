@@ -103,12 +103,8 @@ public class Level
 		// Decrement the number of the touched pixel
 		m_pixelColorNumberMap.put(m_targetPixel, m_pixelColorNumberMap.get(m_targetPixel)-1);
 
-    	// X% of chance to change target color
-    	double rand =  Math.random();
-    	if (rand < ((double) m_arcadePerCent)/100.0)
-    	{
-     		m_targetPixel = getTargetRandomColor();
-    	}
+		// Get a new random target
+		m_targetPixel = getTargetRandomColor();
 
     	return score++;
     }

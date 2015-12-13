@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 public class AGameEngine extends Activity 
 {
-	public static long TIME_TOT = 30000;
+	public static long TIME_TOT = 10000;
+	public static int ADD_TIME = 1000;
+	public static int REMOVE_TIME = 1000;
 	public static String HARDNESS = "";
 	
 	private TextView m_timer;
 	private Level m_levelManager;
 	private Thread m_th;
+	private ReverseTimerRunnable m_thRun;
 	private boolean m_isRunning;
 	private int m_colorNumber;
 	private float m_maxVictoryTime;
@@ -84,11 +87,15 @@ public class AGameEngine extends Activity
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public void setM_timer(TextView m_timer) {
+	public void setTimer(TextView m_timer) {
 		this.m_timer = m_timer;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public TextView getM_timer() {
+	public void setTimerColor(int color) {
+		m_timer.setTextColor(color);
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public TextView getTimer() {
 		return m_timer;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
@@ -146,11 +153,26 @@ public class AGameEngine extends Activity
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public void startReverseTimerThread() 
-	{ 
-		m_th = new Thread(new ReverseTimerRunnable(this));
+	{
+		m_thRun = new ReverseTimerRunnable(this);
+		m_th = new Thread(m_thRun);
 		m_th.start();
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
+	public void addTime(int ms)
+	{
+		if (ms < 100)
+			m_thRun.increaseTimer(100);
+		else
+			m_thRun.increaseTimer(ms);
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public void removeTime(int ms)
+	{
+		m_thRun.decreaseTimer(ms);
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+
 	public class ReverseTimerRunnable implements Runnable
 	{
 		private long startTime = System.currentTimeMillis();
@@ -203,8 +225,16 @@ public class AGameEngine extends Activity
 				}
 			}
 		}
-		
-		
-		
+
+		public void increaseTimer(int ms)
+		{
+			startTime += ms;
+		}
+
+
+		public void decreaseTimer(int ms)
+		{
+			startTime -= ms;
+		}
 	}
 }
