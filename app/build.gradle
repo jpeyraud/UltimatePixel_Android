@@ -13,6 +13,14 @@ android {
         // Enabling multidex support.
         multiDexEnabled true
     }
+    signingConfigs {
+        release {
+            storeFile file("Altarrys.keystore")
+            storePassword "!_!cczu44k22!_!"
+            keyAlias "Altarrys"
+            keyPassword "cczu44k22"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -24,4 +32,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile project(':libraries:BaseGameUtils')
 }

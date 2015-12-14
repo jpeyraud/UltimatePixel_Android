@@ -10,6 +10,8 @@ import android.os.Bundle;
 public class DFVictoryScore extends DialogFragment implements android.content.DialogInterface.OnClickListener
 {
 	private int m_score;
+
+	public DFVictoryScore(){}
 	
 	public DFVictoryScore(int sco)
 	{
