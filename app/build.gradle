@@ -16,9 +16,9 @@ android {
     signingConfigs {
         release {
             storeFile file("Altarrys.keystore")
-            storePassword "!_!cczu44k22!_!"
+            storePassword "cczu44k"
             keyAlias "Altarrys"
-            keyPassword "cczu44k22"
+            keyPassword "cczu44k"
         }
     }
     buildTypes {

@@ -1,3 +1,9 @@
+# Android Studio
+*.iml
+.idea
+.gradle
+build/
+
 #built application files
 *.apk
 *.ap_
@@ -25,9 +31,3 @@ Thumbs.db
 # Eclipse project files
 .classpath
 .project
-
-# Android Studio
-*.iml
-.idea
-.gradle
-*/build/

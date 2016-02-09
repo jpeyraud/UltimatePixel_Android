@@ -11,11 +11,14 @@ public class DFVictoryScore extends DialogFragment implements android.content.Di
 {
 	private int m_score;
 
-	public DFVictoryScore(){}
-	
-	public DFVictoryScore(int sco)
+	public DFVictoryScore()
 	{
-		m_score = sco;
+		m_score = 0;
+	}
+
+	public void setScore(int score)
+	{
+		m_score = score;
 	}
 	
 	@Override

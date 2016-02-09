@@ -48,7 +48,9 @@ public class AGameEngine extends Activity
 
 		if (savedInstanceState == null) 
 		{
-			getFragmentManager().beginTransaction().add(R.id.container,  new FGameEngine(m_levelManager)).commit();
+			FGameEngine fGE = new FGameEngine();
+			fGE.setLevelManager(m_levelManager);
+			getFragmentManager().beginTransaction().add(R.id.container, fGE).commit();
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
@@ -217,7 +219,8 @@ public class AGameEngine extends Activity
 					// save score
 					GE.save(HARDNESS, ""+GE.getScore());
 
-					DFVictoryScore dfVic = new DFVictoryScore(GE.getScore());
+					DFVictoryScore dfVic = new DFVictoryScore();
+					dfVic.setScore(GE.getScore());
 			    	dfVic.show(GE.getFragmentManager(), "id");
 
 		    		// Stop Timer Thread

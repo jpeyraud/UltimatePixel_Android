@@ -26,10 +26,14 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	private AGameEngine parent;
 
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public FGameEngine(Level level) 
+	public FGameEngine()
+	{
+		m_isStarted = false;
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public void setLevelManager(Level level)
 	{
 		m_levelManager = level;
-		m_isStarted = false;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
