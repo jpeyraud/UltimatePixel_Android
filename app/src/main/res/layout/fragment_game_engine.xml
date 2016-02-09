@@ -29,7 +29,6 @@
             android:text="@string/askedColor" 
             android:textColor="@color/White">
         </TextView>
-        
 
         <TextView
             android:id="@+id/textview_askedcolorview"
@@ -41,6 +40,30 @@
             android:background="@color/White"
             android:height="65dp"
             android:width="65dp" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textview_nextcolorview"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@color/White"
+            android:height="40dp"
+            android:width="40dp" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textview_nextnextcolorview"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@color/White"
+            android:height="40dp"
+            android:width="40dp" >
         </TextView>
         
         <TextView

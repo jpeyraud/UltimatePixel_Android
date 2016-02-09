@@ -13,7 +13,7 @@
     <string name="dfvictoryscore">Your score is </string>
     <string name="timeelapsedzero">0</string>
     <string name="timeelapsed">Time Elapsed: </string>
-    <string name="timeremaining">Time Remaining: </string>
+    <string name="timeremaining">Timer: </string>
     <string name="dfcontinue">Continue</string>
     <string name="Score">Score</string>
     <string name="Exit">Exit</string>

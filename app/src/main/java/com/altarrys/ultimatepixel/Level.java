@@ -2,6 +2,7 @@ package com.altarrys.ultimatepixel;
 
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,7 +14,7 @@ public class Level
 	
 	
 	private int m_game_difficulty;
-	private int m_targetPixel;
+	private ArrayList<Integer> m_targetPixels;
 	private int m_nbTargetPixel;
 	private ArrayList<Integer> m_pixelList;
 	private ArrayList<Integer> m_allColors;
@@ -30,6 +31,8 @@ public class Level
 
 		m_nbPixelColorTotal = nbPixelColor;
 
+		m_nbTargetPixel = 3;
+
 		// number of each solor
 		m_pixelColorNumberMap = new HashMap<Integer,Integer>();
 
@@ -43,8 +46,12 @@ public class Level
 			int color = getRandomColor();
 			m_pixelList.add(color);
 		}
-		
-		m_targetPixel = getTargetRandomColor();
+
+		// Init targets
+		m_targetPixels = new ArrayList<Integer>();
+		for (int i = 0; i<m_nbTargetPixel; i++)
+			m_targetPixels.add(getTargetRandomColor());
+
 		score = 0;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
@@ -67,22 +74,27 @@ public class Level
 		int color =  m_allColors.get(choice);
 
 		// Increment the number of the touched pixel
-		m_pixelColorNumberMap.put(color, m_pixelColorNumberMap.get(color)+1);
+		m_pixelColorNumberMap.put(color, m_pixelColorNumberMap.get(color) + 1);
 
 		return color;
     }
     //-----------------------------------------------------------------------------------------------------------------------------
-    public int getTargetPixel()
+    public int getCurrentTargetPixel()
     {
-    	return m_targetPixel;
+    	return m_targetPixels.get(0);
     }
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public ArrayList<Integer> getAllTargetPixel()
+	{
+		return m_targetPixels;
+	}
     //-----------------------------------------------------------------------------------------------------------------------------
     public int countTargetPixel()
     {
     	int cpt=0;
     	for (int i=0 ; i < m_pixelList.size() ; i++)
     	{
-    		if(m_pixelList.get(i)== m_targetPixel)
+    		if(m_pixelList.get(i)== getCurrentTargetPixel())
     			cpt++;
     	}
     	return cpt;
@@ -93,18 +105,14 @@ public class Level
     	return m_pixelList;
     }
     //-----------------------------------------------------------------------------------------------------------------------------
-    public void setTargetPixel(int targetPix)
-    {
-    	m_targetPixel = targetPix;
-    }
-    //-----------------------------------------------------------------------------------------------------------------------------
     public int pixelTouched()
     {
 		// Decrement the number of the touched pixel
-		m_pixelColorNumberMap.put(m_targetPixel, m_pixelColorNumberMap.get(m_targetPixel)-1);
+		m_pixelColorNumberMap.put(getCurrentTargetPixel(), m_pixelColorNumberMap.get(getCurrentTargetPixel())-1);
 
 		// Get a new random target
-		m_targetPixel = getTargetRandomColor();
+		m_targetPixels.remove(0);
+		m_targetPixels.add(getTargetRandomColor());
 
     	return score++;
     }

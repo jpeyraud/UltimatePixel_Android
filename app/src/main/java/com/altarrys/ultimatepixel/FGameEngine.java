@@ -50,9 +50,11 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		m_pixelGridView.setAdapter(adapter);
 		m_pixelGridView.setOnTouchListener(this);
 		
-		// Display this target color
-		rootView.findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
-		
+		// Display targets color
+		rootView.findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel(0));
+		rootView.findViewById(R.id.textview_nextcolorview).setBackgroundColor(getResourceTargetPixel(1));
+		rootView.findViewById(R.id.textview_nextnextcolorview).setBackgroundColor(getResourceTargetPixel(2));
+
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
 		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
 
@@ -98,7 +100,9 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			score = m_levelManager.pixelTouched();
 
 			// Modify pixel target color
-			getActivity().findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel());
+			getActivity().findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel(0));
+			getActivity().findViewById(R.id.textview_nextcolorview).setBackgroundColor(getResourceTargetPixel(1));
+			getActivity().findViewById(R.id.textview_nextnextcolorview).setBackgroundColor(getResourceTargetPixel(2));
 
 			//parent.setTimerColor(R.color.Green);
 			parent.addTime(parent.ADD_TIME - (100 * (score / 20)));
@@ -145,8 +149,14 @@ public class FGameEngine extends Fragment implements OnTouchListener
     public int getResourceTargetPixel()
     {
     	// Get the target color value
-    	return getResources().getColor(m_levelManager.getTargetPixel());
+    	return getResources().getColor(m_levelManager.getCurrentTargetPixel());
     }
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public int getResourceTargetPixel(int index)
+	{
+		// Get the target color value
+		return getResources().getColor(m_levelManager.getAllTargetPixel().get(index));
+	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------------------------------------

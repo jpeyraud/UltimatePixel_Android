@@ -73,22 +73,6 @@ public class AGameEngine extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public void generateLevel(int levelId)
-	{
-		if (levelId > 5)
-		{
-			m_colorNumber = ((levelId-1)/5)+3;
-			m_pixelLineNumber = (levelId % 5) + 4;
-			m_maxVictoryTime = 0.0f;
-		}
-		else
-		{
-			m_colorNumber = 3;
-			m_pixelLineNumber = 2;
-			m_maxVictoryTime = 0.0f;
-		}
-	}
-	//-----------------------------------------------------------------------------------------------------------------------------
 	public void setTimer(TextView m_timer) {
 		this.m_timer = m_timer;
 	}
@@ -174,7 +158,6 @@ public class AGameEngine extends Activity
 		m_thRun.decreaseTimer(ms);
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-
 	public class ReverseTimerRunnable implements Runnable
 	{
 		private long startTime = System.currentTimeMillis();
@@ -217,7 +200,7 @@ public class AGameEngine extends Activity
 				if (res < 0.1)
 				{
 					// save score
-					GE.save(HARDNESS, ""+GE.getScore());
+					//GE.save(HARDNESS, ""+GE.getScore());
 
 					DFVictoryScore dfVic = new DFVictoryScore();
 					dfVic.setScore(GE.getScore());
