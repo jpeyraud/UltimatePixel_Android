@@ -32,7 +32,7 @@ public class BaseGameUtils {
      * @param client the GoogleAPIClient instance of the Activity.
      * @param result the ConnectionResult received by the Activity.
      * @param requestCode a request code which the calling Activity can use to identify the result
-     *                    of this resolution in onActivityResult.
+     *                    of this iResolution in onActivityResult.
      * @param fallbackErrorMessage a generic error message to display if the failure cannot be resolved.
      * @return true if the connection failure is resolved, false otherwise.
      */

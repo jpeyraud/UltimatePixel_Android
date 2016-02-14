@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:background="@drawable/background_circulargradiant"
-    tools:context="com.altarrys.ultimatepixel.AGameEngine$PlaceholderFragment" >
+    tools:context="com.altarrys.ultimatepixel.game.AGameEngine$PlaceholderFragment" >
     
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.altarrys.ultimatepixel;
+package com.altarrys.ultimatepixel.game;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+
+import com.altarrys.ultimatepixel.R;
 
 import java.util.List;
 

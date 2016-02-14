@@ -1,10 +1,12 @@
-package com.altarrys.ultimatepixel;
+package com.altarrys.ultimatepixel.game;
 
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.altarrys.ultimatepixel.R;
 
 public class AScore extends Activity 
 {

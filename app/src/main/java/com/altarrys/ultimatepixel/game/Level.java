@@ -1,6 +1,8 @@
-package com.altarrys.ultimatepixel;
+package com.altarrys.ultimatepixel.game;
 
 import android.util.Log;
+
+import com.altarrys.ultimatepixel.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.altarrys.ultimatepixel;
+package com.altarrys.ultimatepixel.game;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +14,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
+import com.altarrys.ultimatepixel.R;
+import com.altarrys.ultimatepixel.opengl.MenuGLSurface;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,10 +35,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
 	private static final String TAG = "MainActivity";
 
+
+
 	// Client used to interact with Google APIs.
 	private GoogleApiClient mGoogleApiClient;
 
-	// Request code to use when launching the resolution activity
+	// Request code to use when launching the iResolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
 
 	// Unique tag for the error dialog fragment
@@ -49,18 +54,28 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 
 		// Create the Google Api Client with access to Plus and Games
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
+		/*mGoogleApiClient = new GoogleApiClient.Builder(this)
 			.addConnectionCallbacks(this)
 			.addOnConnectionFailedListener(this)
 			.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
 			.addApi(Games.API).addScope(Games.SCOPE_GAMES)
-			.build();
+			.build();*/
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(
+				WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-		if (savedInstanceState == null) 
+
+		//mGlMenuBackground.setZOrderOnTop(true);
+
+		//setContentView(mGlMenuBackground);
+		setContentView(R.layout.activity_main);
+
+		if (savedInstanceState == null)
 		{
 			getFragmentManager().beginTransaction().add(R.id.container, new PlaceholderFragment()).commit();
 		}
@@ -103,13 +118,13 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 		super.onStart();
 		if (!mResolvingError) {  // more about this later
 			Log.d(TAG, "pending connection");
-			mGoogleApiClient.connect();
+			//mGoogleApiClient.connect();
 		}
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
 	protected void onStop() {
-		mGoogleApiClient.disconnect();
+		//mGoogleApiClient.disconnect();
 		super.onStop();
 	}
 
@@ -117,11 +132,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 	public void onConnected(Bundle bundle) {
 		Log.d(TAG, "onConnected() called. Sign in successful!");
 	}
+
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
 	public void onConnectionSuspended(int i) {
 		Log.d(TAG, "onConnectionSuspended() called. Trying to reconnect.");
-		mGoogleApiClient.connect();
+		//mGoogleApiClient.connect();
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
@@ -144,7 +160,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 			}
 			catch (Exception e) //(IntentSender.SendIntentException e)
 			{
-				// There was an error with the resolution intent. Try again.
+				// There was an error with the iResolution intent. Try again.
 				Log.d(TAG, "error resolving: "+ e);
 			}
 		}
@@ -198,7 +214,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	Log.d(TAG, "onActivityResult");
+		/*Log.d(TAG, "onActivityResult");
 		if (requestCode == REQUEST_RESOLVE_ERROR)
 		{
 			mResolvingError = false;
@@ -223,7 +239,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 				Log.d(TAG, "sign in failed");
 				mGoogleApiClient.connect();
 			}
-		}
+		}*/
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	/**
@@ -231,6 +247,8 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 	 */
 	public static class PlaceholderFragment extends Fragment implements View.OnTouchListener
 	{
+		private MenuGLSurface mGlMenuBackground;
+
 		public PlaceholderFragment()
 		{
 
@@ -241,11 +259,28 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 		{
 			View rootView = inflater.inflate(R.layout.fragment_main, container,	false);
 
+			mGlMenuBackground = (MenuGLSurface) rootView.findViewById(R.id.menuglsurface);
+
+
+
 			// Set OnClickListener for all buttons
 			((Button) rootView.findViewById(R.id.playButton)).setOnTouchListener(this);
 			((Button) rootView.findViewById(R.id.ScoreButton)).setOnTouchListener(this);
 
+
 			return rootView;
+		}
+		//-----------------------------------------------------------------------------------------------------------------------------
+		@Override
+		public void onResume() {
+			super.onResume();
+			mGlMenuBackground.onResume();
+		}
+		//-----------------------------------------------------------------------------------------------------------------------------
+		@Override
+		public void onPause() {
+			super.onPause();
+			mGlMenuBackground.onPause();
 		}
 
 		@Override
@@ -281,10 +316,10 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 				}
 				else if (v.getId() == R.id.ScoreButton)
 				{
-					GoogleApiClient googleApi = ((MainActivity)getActivity()).getGoogleApiClient();
+					//GoogleApiClient googleApi = ((MainActivity)getActivity()).getGoogleApiClient();
 
-					if (googleApi.isConnected())
-						startActivityForResult(Games.Leaderboards.getLeaderboardIntent(googleApi,getString(R.string.leaderboard_id)), 1224);
+					//if (googleApi.isConnected())
+						//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(googleApi,getString(R.string.leaderboard_id)), 1224);
 				}
 			}
 

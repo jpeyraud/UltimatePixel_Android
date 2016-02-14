@@ -83,7 +83,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
     // are we currently connecting?
     private boolean mConnecting = false;
 
-    // Are we expecting the result of a resolution flow?
+    // Are we expecting the result of a iResolution flow?
     boolean mExpectingResolution = false;
 
     // was the sign-in flow cancelled when we tried it?
@@ -558,7 +558,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
             return;
         }
 
-        // no longer expecting a resolution
+        // no longer expecting a iResolution
         mExpectingResolution = false;
 
         if (!mConnecting) {
@@ -833,7 +833,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
     void resolveConnectionResult() {
         // Try to resolve the problem
         if (mExpectingResolution) {
-            debugLog("We're already expecting the result of a previous resolution.");
+            debugLog("We're already expecting the result of a previous iResolution.");
             return;
         }
 
@@ -846,7 +846,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
                 + mConnectionResult);
         if (mConnectionResult.hasResolution()) {
             // This problem can be fixed. So let's try to fix it.
-            debugLog("Result has resolution. Starting it.");
+            debugLog("Result has iResolution. Starting it.");
             try {
                 // launch appropriate UI flow (which might, for example, be the
                 // sign-in flow)
@@ -861,7 +861,7 @@ public class GameHelper implements GoogleApiClient.ConnectionCallbacks,
         } else {
             // It's not a problem what we can solve, so give up and show an
             // error.
-            debugLog("resolveConnectionResult: result has no resolution. Giving up.");
+            debugLog("resolveConnectionResult: result has no iResolution. Giving up.");
             giveUp(new SignInFailureReason(mConnectionResult.getErrorCode()));
             
             mConnectionResult = null;
