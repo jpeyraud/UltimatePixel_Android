@@ -52,12 +52,12 @@ vec4 mainImage (in vec2 fragCoord) {
     float soundBass = texture2D (iChannel0, vec2 (0.0)).x;
     float soundTreble = texture2D (iChannel0, vec2 (0.9, 0.0)).x;
 #else
-    float soundBass = 0.6 + 0.4 * cos (iGlobalTime * 1.0);
-    float soundTreble = 0.5 + 0.5 * cos (iGlobalTime * 2.0);
+    float soundBass = 0.6 + 0.4 * cos (iGlobalTime * 0.8);
+    float soundTreble = 0.5 + 0.5 * cos (iGlobalTime * 1.8);
 #endif
 
     // Set the camera
-    vec3 origin = vec3 (0.0, 6.0 - 3.0 * cos (iGlobalTime * 0.3), iGlobalTime * 2.0 + 700.0 * (0.5 + 0.5 * sin (iGlobalTime * 0.02)));
+    vec3 origin = vec3 (0.0, 6.0 - 3.0 * cos (iGlobalTime * 0.3), iGlobalTime * 2.0 + 700.0 * (0.5 + 0.5 * sin (iGlobalTime * 0.012)));
     float cameraAngle = iGlobalTime * 0.1;
 #ifdef MOUSE
     cameraAngle += 2.0 * PI * iMouse.x / iResolution.x;
@@ -122,7 +122,7 @@ vec4 mainImage (in vec2 fragCoord) {
     }
 
     // Set the fragment color
-    return vec4 (color, 1.0);
+    return vec4 (color*2.0, 1.0);
 }
 
 void main()
