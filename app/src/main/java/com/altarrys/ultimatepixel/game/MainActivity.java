@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +16,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.altarrys.ultimatepixel.R;
 import com.altarrys.ultimatepixel.opengl.MenuGLSurface;
@@ -259,14 +263,15 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 		{
 			View rootView = inflater.inflate(R.layout.fragment_main, container,	false);
 
-			mGlMenuBackground = (MenuGLSurface) rootView.findViewById(R.id.menuglsurface);
-
-
+			// Add opengl background
+			mGlMenuBackground = new MenuGLSurface(this.getActivity(), R.raw.cubes_frag_shader);
+			((FrameLayout)rootView.findViewById(R.id.main_fragment_framelayout)).addView(mGlMenuBackground,0);
 
 			// Set OnClickListener for all buttons
-			((Button) rootView.findViewById(R.id.playButton)).setOnTouchListener(this);
-			((Button) rootView.findViewById(R.id.ScoreButton)).setOnTouchListener(this);
-
+			Button ButtonPlay = (Button) rootView.findViewById(R.id.playButton);
+			Button ButtonScore = (Button) rootView.findViewById(R.id.ScoreButton);
+			ButtonPlay.setOnTouchListener(this);
+			ButtonScore.setOnTouchListener(this);
 
 			return rootView;
 		}

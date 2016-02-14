@@ -25,6 +25,8 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
 
     private static final String TAG = "MenuGLSurface";
 
+    private final int mFragShaderID;
+
     private static int COMPONENT_PER_VERTEX = 3;
     private final int vertexStride = COMPONENT_PER_VERTEX * 4; // 4 bytes per vertex
 
@@ -54,14 +56,10 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
     private int mGlobalTimeLocation;
     private int mTexture0Location;
 
-    public MenuGLSurface(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        MenuGLSurfaceInit();
-    }
-
-    public MenuGLSurface(Context context) {
+    public MenuGLSurface(Context context, int fragShader) {
         super(context);
+
+        mFragShaderID = fragShader;
 
         MenuGLSurfaceInit();
     }
@@ -97,7 +95,7 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
 
         // Compile shaders
         int vertexShader = loadGLShader(GL_VERTEX_SHADER, getContext(), R.raw.basic_vertex_shader);
-        int passthroughShader = loadGLShader(GL_FRAGMENT_SHADER, getContext(),  R.raw.cubes_frag_shader);
+        int passthroughShader = loadGLShader(GL_FRAGMENT_SHADER, getContext(),  mFragShaderID);
 
         // Set up gl program
         glProgram = glCreateProgram();

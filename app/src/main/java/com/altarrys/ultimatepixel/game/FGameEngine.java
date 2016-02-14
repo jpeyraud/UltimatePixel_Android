@@ -12,10 +12,12 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.altarrys.ultimatepixel.R;
+import com.altarrys.ultimatepixel.opengl.MenuGLSurface;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	private Level m_levelManager;
 	private boolean m_isStarted;
 	private AGameEngine parent;
+	private MenuGLSurface mGlMenuBackground;
 
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public FGameEngine()
@@ -45,7 +48,12 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		
 		// Put the parent activity in Attribute
 		parent = ((AGameEngine)getActivity());
-		
+
+		// Add OpenGL background
+		mGlMenuBackground = new MenuGLSurface(this.getActivity(), R.raw.color_circle_frag_shader);
+		((FrameLayout)rootView.findViewById(R.id.gameengimelayout)).addView(mGlMenuBackground,0);
+
+
 		// Get the GridView and set the adapter to display more than one Button dynamically
 		m_pixelGridView = (GridView) rootView.findViewById(R.id.imagegridview);
 		PixelArrayAdapter adapter = new PixelArrayAdapter(getActivity(), R.id.Pixel , m_levelManager.getPixelList());

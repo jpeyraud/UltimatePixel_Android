@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/main_fragment_framelayout"
     tools:context="com.altarrys.ultimatepixel.game.MainActivity$PlaceholderFragment" >
 
-    <com.altarrys.ultimatepixel.opengl.MenuGLSurface
-        android:id="@+id/menuglsurface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <LinearLayout
+        android:id="@+id/titleimagelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -29,43 +27,51 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/menubuttonslayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_marginTop="330dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <Button
             android:id="@+id/playButton"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bluebackground_blackborder"
-            android:shadowColor="@color/White"
-            android:shadowDx="0.0"
-            android:shadowDy="3.0"
-            android:shadowRadius="20.0"
+            android:background="@drawable/buttonshapeplay"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:alpha="0.8"
             android:text="@string/PlayButtonText"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="23dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             android:textSize="@dimen/medium_font"
             android:textColor="@color/White"
             android:textStyle="bold" />
-
 
         <Button
             android:id="@+id/ScoreButton"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/greenbackground_blackborder"
-            android:shadowColor="@color/White"
-            android:shadowDx="0.0"
-            android:shadowDy="3.0"
-            android:shadowRadius="20.0"
+            android:background="@drawable/buttonshapescore"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:alpha="0.8"
             android:textStyle="bold"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="@string/Score"
             android:textSize="@dimen/medium_font"
             android:textColor="@color/White"/>

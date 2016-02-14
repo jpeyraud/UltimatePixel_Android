@@ -36,7 +36,7 @@ vec4 mainImage( vec2 fragCoord )
 
     // draw color beam
     uv = (2.0 * uv) - 1.0;
-    float beamWidth = (0.7+0.5*cos(uv.x*10.0*tau*0.15*clamp(floor(5.0 + 10.0*cos(iGlobalTime)), 0.0, 10.0))) * abs(1.0 / (30.0 * uv.y));
+    float beamWidth = (0.9+1.5*cos(uv.x*10.0*tau*0.15*clamp(floor(5.0 + 10.0*cos(iGlobalTime)), 0.0, 10.0))) * abs(1.0 / (30.0 * uv.y));
     vec3 horBeam = vec3(beamWidth);
     return vec4((( horBeam) * horColour), 1.0);
 }
