@@ -60,10 +60,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		m_pixelGridView.setAdapter(adapter);
 		m_pixelGridView.setOnTouchListener(this);
 
-		// Display targets color
-		//((PixelTile)rootView.findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
-		//((PixelTile)rootView.findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
-		//((PixelTile)rootView.findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
+		setUpTargetView(rootView);
 
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
 		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
@@ -109,9 +106,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			score = m_levelManager.pixelTouched();
 
 			// Modify pixel target color
-			((PixelTile)getActivity().findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
-			((PixelTile)getActivity().findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
-			((PixelTile)getActivity().findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
+			setUpTargetView(getActivity().getWindow().getDecorView());
 
 			//parent.setTimerColor(R.color.Green);
 			//parent.addTime(parent.ADD_TIME - (100 * (score / 20)));
@@ -170,6 +165,12 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		return getResources().getColor(m_levelManager.getAllTargetPixel().get(index));
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
+	public void setUpTargetView(View root){
+		// Display targets color
+		((PixelTile)root.findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
+		((PixelTile)root.findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
+		((PixelTile)root.findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
+	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------------------------------------
 }
