@@ -9,38 +9,29 @@ import android.os.Bundle;
 import com.altarrys.ultimatepixel.R;
 
 
-public class DFVictoryScore extends DialogFragment implements android.content.DialogInterface.OnClickListener
+public class DFChangeGLBackground extends DialogFragment implements DialogInterface.OnClickListener
 {
-	private int m_score;
+	private MainFragment mFrag;
 
-	public DFVictoryScore()
-	{
-		m_score = 0;
-	}
-
-	public void setScore(int score)
-	{
-		m_score = score;
+	public void setFragment(MainFragment frag){
+		mFrag = frag;
 	}
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		
+		builder.setTitle(R.string.dfglbackground);
+		builder.setPositiveButton(R.string.dfchangebackground, this);
+		builder.setNegativeButton(R.string.dfkeepbackground, this);
 
-		setCancelable(false);
-		
-		builder.setTitle(getString(R.string.dfvictoryscore) + " " + m_score);
-		builder.setPositiveButton(R.string.dfcontinue, this);
-		
 		return builder.create();
 	}
-
 	@Override
 	public void onClick(DialogInterface dialog, int which) 
 	{
 		if (which == DialogInterface.BUTTON_POSITIVE)
-			getActivity().finish();
+			mFrag.changeFragShader();
 	}
-
 }

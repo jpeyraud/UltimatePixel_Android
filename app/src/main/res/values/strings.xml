@@ -10,11 +10,14 @@
     <string name="title_activity_agame_engine">Ultimate Pixel</string>
     <string name="askedColor">Target : </string>
     <string name="dfvictory">Victory!!</string>
+    <string name="dfglbackground">Change background to reduce lag?</string>
     <string name="dfvictoryscore">Your score is </string>
     <string name="timeelapsedzero">0</string>
     <string name="timeelapsed">Time Elapsed: </string>
     <string name="timeremaining">Timer: </string>
     <string name="dfcontinue">Continue</string>
+    <string name="dfchangebackground">Change Background</string>
+    <string name="dfkeepbackground">Keep Background</string>
     <string name="Score">Score</string>
     <string name="Exit">Exit</string>
     <string name="Normal">Normal</string>

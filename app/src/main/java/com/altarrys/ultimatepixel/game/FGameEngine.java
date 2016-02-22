@@ -2,7 +2,10 @@ package com.altarrys.ultimatepixel.game;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +27,8 @@ import java.util.List;
 
 public class FGameEngine extends Fragment implements OnTouchListener
 {
+	private static final String TAG = "FGameEngine";
+
 	private GridView m_pixelGridView;
 	private Level m_levelManager;
 	private boolean m_isStarted;
@@ -45,25 +50,20 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 	{
 		View rootView = inflater.inflate(R.layout.fragment_game_engine,	container, false);
-		
+
 		// Put the parent activity in Attribute
 		parent = ((AGameEngine)getActivity());
-
-		// Add OpenGL background
-		mGlMenuBackground = new MenuGLSurface(this.getActivity(), R.raw.color_circle_frag_shader);
-		((FrameLayout)rootView.findViewById(R.id.gameengimelayout)).addView(mGlMenuBackground,0);
-
 
 		// Get the GridView and set the adapter to display more than one Button dynamically
 		m_pixelGridView = (GridView) rootView.findViewById(R.id.imagegridview);
 		PixelArrayAdapter adapter = new PixelArrayAdapter(getActivity(), R.id.Pixel , m_levelManager.getPixelList());
 		m_pixelGridView.setAdapter(adapter);
 		m_pixelGridView.setOnTouchListener(this);
-		
+
 		// Display targets color
-		rootView.findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel(0));
-		rootView.findViewById(R.id.textview_nextcolorview).setBackgroundColor(getResourceTargetPixel(1));
-		rootView.findViewById(R.id.textview_nextnextcolorview).setBackgroundColor(getResourceTargetPixel(2));
+		//((PixelTile)rootView.findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
+		//((PixelTile)rootView.findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
+		//((PixelTile)rootView.findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
 
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
 		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
@@ -90,33 +90,34 @@ public class FGameEngine extends Fragment implements OnTouchListener
         float currentYPosition = me.getY();
         int position = m_pixelGridView.pointToPosition((int) currentXPosition, (int) currentYPosition);
 
-        TextView tv = (TextView) m_pixelGridView.getChildAt(position);
+		PixelTile tv = (PixelTile) m_pixelGridView.getChildAt(position);
 		
         if (me.getActionMasked() == MotionEvent.ACTION_DOWN && tv !=null)
         {
-        	ColorDrawable draw = (ColorDrawable) tv.getBackground();
-			handleTouch(draw, tv);
+			handleTouch(tv);
         }
 		return false;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public void handleTouch(ColorDrawable draw, TextView tv) {
+	public void handleTouch(PixelTile pixel) {
 		int score;
 
 		// if color of touched pixel  is the same as the target color, delete it
-		if (draw.getColor() == getResourceTargetPixel()) {
+		if (pixel.getColor() == getResourceTargetPixel()) {
 			// Replaced the touched pixel by a random color
-			tv.setBackgroundColor(getResources().getColor(m_levelManager.getRandomColor()));
+			pixel.setColor(getResources().getColor(m_levelManager.getRandomColor()));
 			score = m_levelManager.pixelTouched();
 
 			// Modify pixel target color
-			getActivity().findViewById(R.id.textview_askedcolorview).setBackgroundColor(getResourceTargetPixel(0));
-			getActivity().findViewById(R.id.textview_nextcolorview).setBackgroundColor(getResourceTargetPixel(1));
-			getActivity().findViewById(R.id.textview_nextnextcolorview).setBackgroundColor(getResourceTargetPixel(2));
+			((PixelTile)getActivity().findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
+			((PixelTile)getActivity().findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
+			((PixelTile)getActivity().findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
 
 			//parent.setTimerColor(R.color.Green);
-			parent.addTime(parent.ADD_TIME - (100 * (score / 20)));
-			Log.d("TAG", ""+(parent.ADD_TIME - (100 * (score / 20))));
+			//parent.addTime(parent.ADD_TIME - (100 * (score / 20)));
+			int addMs = parent.ADD_TIME - (score * 6);
+			parent.addTime(addMs>150?addMs:150);
+			Log.d("TAG", ""+(parent.ADD_TIME - (score * 6)));
 
 		}
 		else
@@ -146,9 +147,10 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			if (convertView == null) 
 			{
 				v = LayoutInflater.from(getContext()).inflate(R.layout.pixel, null);
-				v.setBackground(new ColorDrawable(getResources().getColor(myPixel)));
+				((GradientDrawable)v.getBackground()).setColor(getResources().getColor(myPixel));
+				((PixelTile)v).setColor(getResources().getColor(myPixel));
 			}
-			else	
+			else
 			{
 				v=convertView;
 			}

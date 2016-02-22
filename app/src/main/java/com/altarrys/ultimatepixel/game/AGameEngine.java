@@ -42,7 +42,7 @@ public class AGameEngine extends Activity
 
 		// Get the hardness of the level and initialize the LevelManager
 		HARDNESS = "hard";
-		m_colorNumber = 6;
+		m_colorNumber = 3;
 		m_pixelLineNumber = 5;
 		m_levelManager = new Level(Level.NORMAL_MODE, m_colorNumber, m_pixelLineNumber);
 
@@ -199,7 +199,7 @@ public class AGameEngine extends Activity
 				// if it doesn't remain time stop the level
 				if (res < 0.1)
 				{
-					// save score
+					// save m_score
 					//GE.save(HARDNESS, ""+GE.getScore());
 
 					DFVictoryScore dfVic = new DFVictoryScore();

@@ -12,7 +12,7 @@ precision highp float;
 
 // Parameters
 #define CAMERA_FOCAL_LENGTH	1.
-#define VOXEL_STEP			35.0
+#define VOXEL_STEP			28.0
 #define SOUND2
 #define MOUSE2
 #define HSV2RGB_FAST2
@@ -53,11 +53,11 @@ vec4 mainImage (in vec2 fragCoord) {
     float soundTreble = texture2D (iChannel0, vec2 (0.9, 0.0)).x;
 #else
     float soundBass = 0.6 + 0.4 * cos (iGlobalTime * 0.8);
-    float soundTreble = 0.5 + 0.5 * cos (iGlobalTime * 1.8);
+    float soundTreble = 0.5 + 0.5 * cos (iGlobalTime * 1.2);
 #endif
 
     // Set the camera
-    vec3 origin = vec3 (0.0, 6.0 - 3.0 * cos (iGlobalTime * 0.3), iGlobalTime * 2.0 + 700.0 * (0.5 + 0.5 * sin (iGlobalTime * 0.012)));
+    vec3 origin = vec3 (0.0, 6.0 - 3.0 * cos (iGlobalTime * 0.3), iGlobalTime * 2.0 + 700.0 * (0.5 + 0.5 * sin (iGlobalTime * 0.005)));
     float cameraAngle = iGlobalTime * 0.1;
 #ifdef MOUSE
     cameraAngle += 2.0 * PI * iMouse.x / iResolution.x;

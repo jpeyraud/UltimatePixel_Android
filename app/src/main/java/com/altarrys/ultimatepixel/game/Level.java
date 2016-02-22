@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.altarrys.ultimatepixel.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,19 +20,24 @@ public class Level
 	private ArrayList<Integer> m_pixelList;
 	private ArrayList<Integer> m_allColors;
 	private int m_nbPixelColorTotal;
+	private int m_nbPixelColorStart;
+	private int m_colorStep;
+	private float m_nbPixelColorScaleFactor;
 	private HashMap<Integer,Integer> m_pixelColorNumberMap;
 	private int m_arcadePerCent = 50;
 
-	public int score;
+	public int m_score;
 
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public Level(int gameDifficulty, int nbPixelColor, int nbPixelLine)
 	{
+		// Init Level properties
 		m_game_difficulty = gameDifficulty;
-
-		m_nbPixelColorTotal = nbPixelColor;
-
+		m_nbPixelColorStart = nbPixelColor;
+		m_nbPixelColorTotal = m_nbPixelColorStart;
 		m_nbTargetPixel = 3;
+		m_nbPixelColorScaleFactor = 30f;
+		m_colorStep = 0;
 
 		// number of each solor
 		m_pixelColorNumberMap = new HashMap<Integer,Integer>();
@@ -54,19 +58,25 @@ public class Level
 		for (int i = 0; i<m_nbTargetPixel; i++)
 			m_targetPixels.add(getTargetRandomColor());
 
-		score = 0;
+		m_score = 0;
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	private int getTargetRandomColor()
 	{
 		int choice = (int) (Math.random()*(double) m_nbPixelColorTotal); // care to rand = 1.0
-
 		Log.d("TAG", "target remaining : " + m_pixelColorNumberMap.get(m_allColors.get(choice)));
 
+		// Use recursivity if target non available
 		if (m_pixelColorNumberMap.get(m_allColors.get(choice)) == 0)
 			return getTargetRandomColor();
 
-		return m_allColors.get(choice);
+		// New target
+		int newTarget = m_allColors.get(choice);
+
+		// Decrement the number of the touched pixel
+		m_pixelColorNumberMap.put(newTarget, m_pixelColorNumberMap.get(newTarget)-1);
+
+		return newTarget;
 	}
     //-----------------------------------------------------------------------------------------------------------------------------
     public int getRandomColor()
@@ -75,7 +85,7 @@ public class Level
 
 		int color =  m_allColors.get(choice);
 
-		// Increment the number of the touched pixel
+		// Increment the number of the new pixel
 		m_pixelColorNumberMap.put(color, m_pixelColorNumberMap.get(color) + 1);
 
 		return color;
@@ -109,19 +119,31 @@ public class Level
     //-----------------------------------------------------------------------------------------------------------------------------
     public int pixelTouched()
     {
-		// Decrement the number of the touched pixel
-		m_pixelColorNumberMap.put(getCurrentTargetPixel(), m_pixelColorNumberMap.get(getCurrentTargetPixel())-1);
+		// Increment score
+		m_score++;
+
+		// Go to the next color only if the score is enough (progressive scaling)
+		if(m_score/(int)m_nbPixelColorScaleFactor > m_colorStep){
+			m_colorStep++;
+			m_nbPixelColorScaleFactor*=1.33f;
+		}
+		// Update color number
+		m_nbPixelColorTotal = m_nbPixelColorStart+m_colorStep ;
+
+		// Avoid number of color to be too big
+		if (m_nbPixelColorTotal > m_allColors.size())
+			m_nbPixelColorTotal = m_allColors.size();
 
 		// Get a new random target
 		m_targetPixels.remove(0);
 		m_targetPixels.add(getTargetRandomColor());
 
-    	return score++;
+    	return m_score;
     }
     //-----------------------------------------------------------------------------------------------------------------------------
     public int getScore()
     {
-    	return score;
+    	return m_score;
     }
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public void initColors()
@@ -133,13 +155,12 @@ public class Level
 		m_allColors.add(R.color.MediumGreen);
 		m_allColors.add(R.color.Yellow);
 		m_allColors.add(R.color.Cyan);
-		m_allColors.add(R.color.DarkMagenta);
-		m_allColors.add(R.color.Grey);
 		m_allColors.add(R.color.Pink);
-		m_allColors.add(R.color.Black);
+		m_allColors.add(R.color.Grey);
 		m_allColors.add(R.color.Orange);
 		m_allColors.add(R.color.Purple);
 		m_allColors.add(R.color.White);
+		m_allColors.add(R.color.Black);
 
 		m_pixelColorNumberMap.put(R.color.MediumBlue, 0);
 		m_pixelColorNumberMap.put(R.color.MediumRed, 0);
