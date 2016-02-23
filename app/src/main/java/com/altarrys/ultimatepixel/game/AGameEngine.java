@@ -109,35 +109,6 @@ public class AGameEngine extends Activity
 		
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public void startTimerThread() 
-	{ 
-		m_th = new Thread(new Runnable()
-		{
-			private long startTime = System.currentTimeMillis();
-			public void run() 
-			{     
-				while(m_isRunning)
-				{
-					runOnUiThread(new Runnable() 
-					{
-						@Override
-						public void run() 
-						{
-							m_timer.setText("" + ((float) (((int) ((System.currentTimeMillis() - startTime) * 100.0)) / 1000)) / 100.0);
-						}
-					});
-					try {
-						Thread.sleep(10);
-					} 
-					catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		m_th.start();
-	}
-	//-----------------------------------------------------------------------------------------------------------------------------
 	public void startReverseTimerThread() 
 	{
 		m_thRun = new ReverseTimerRunnable(this);
@@ -170,11 +141,11 @@ public class AGameEngine extends Activity
 		}
 		public void run() 
 		{     
-			while(m_isRunning)
+			while(m_isRunning && !GE.isDestroyed())
 			{
 				runOnUiThread(new RevTimeRunnable(GE));
 				try {
-					Thread.sleep(100);
+					Thread.sleep(40);
 				} 
 				catch (InterruptedException e) {
 					e.printStackTrace();
@@ -193,12 +164,12 @@ public class AGameEngine extends Activity
 			@Override
 			public void run() 
 			{
-				double res = ((float)(((int)(((totTime - (System.currentTimeMillis()-startTime)))*10.0))/1000))/10.0;
-				m_timer.setText("" + res);
-				
+				long updatedTime = totTime - (System.currentTimeMillis()-startTime);
+
 				// if it doesn't remain time stop the level
-				if (res < 0.1)
-				{
+				if (updatedTime < 0.0) {
+
+					m_timer.setText(getTimeString(0));
 					// save m_score
 					//GE.save(HARDNESS, ""+GE.getScore());
 
@@ -209,7 +180,20 @@ public class AGameEngine extends Activity
 		    		// Stop Timer Thread
 		    		GE.stopTimer();
 				}
+				else {
+					m_timer.setText(getTimeString(updatedTime));
+				}
 			}
+		}
+
+		public String getTimeString(long updatedTime) {
+
+			int secs = (int) (updatedTime / 1000);
+			int mins = secs / 60;
+			secs = secs % 60;
+			int milliseconds = (int) (updatedTime % 1000)/10;
+			return String.format("%02d", secs) + ":" + String.format("%01d", milliseconds);
+
 		}
 
 		public void increaseTimer(int ms)

@@ -15,8 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/DarkGrey"
         android:layout_margin="2dp"
+        android:padding="4dp"
+        android:background="@drawable/layoutshapetarget"
         android:layout_marginBottom="6dp"
         tools:context="com.example.ultimatepixel.AGameEngine$PlaceholderFragment" >
 
@@ -27,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="@string/askedColor" 
+            android:paddingLeft="10dp"
+            android:text="@string/askedColor"
             android:textColor="@color/White">
         </TextView>
 
@@ -66,20 +68,21 @@
             android:height="40dp"
             android:width="40dp" >
         </com.altarrys.ultimatepixel.game.PixelTile>
-        
-        <TextView
-            android:id="@+id/textview_timeelapsed"
+
+        <com.altarrys.ultimatepixel.game.PixelTile
+            android:id="@+id/textview_nextnextnextcolorview"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:text="@string/timeelapsed" 
-            android:textColor="@color/White">
-        </TextView>
+            android:background="@drawable/pixel_tile"
+            android:height="40dp"
+            android:width="40dp" >
+        </com.altarrys.ultimatepixel.game.PixelTile>
 
         <TextView
-            android:id="@+id/textview_timeelapsedview"
+            android:id="@+id/textview_timeelapsed"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -99,8 +102,10 @@
             android:text=""
             android:textColor="@color/Green">
         </TextView>
+
     </LinearLayout>
-    
+
+
     <GridView
         android:id="@+id/imagegridview"
     	android:layout_width="match_parent"

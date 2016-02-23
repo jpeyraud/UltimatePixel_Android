@@ -2,9 +2,6 @@ package com.altarrys.ultimatepixel.game;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +12,6 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -63,10 +59,9 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		setUpTargetView(rootView);
 
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
-		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsedview));
+		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsed));
 
-		((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText(R.string.timeremaining);
-		((TextView)rootView.findViewById(R.id.textview_timeelapsedview)).setText(""+AGameEngine.TIME_TOT/1000);
+		((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText(""+AGameEngine.TIME_TOT/1000+":00");
 
 		return rootView;
 	}
@@ -82,7 +77,6 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		}
 		
 		// Hand made pixel detection
-		int action = me.getActionMasked(); 
         float currentXPosition = me.getX();
         float currentYPosition = me.getY();
         int position = m_pixelGridView.pointToPosition((int) currentXPosition, (int) currentYPosition);
@@ -108,8 +102,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			// Modify pixel target color
 			setUpTargetView(getActivity().getWindow().getDecorView());
 
-			//parent.setTimerColor(R.color.Green);
-			//parent.addTime(parent.ADD_TIME - (100 * (score / 20)));
+			// Add time to timer
 			int addMs = parent.ADD_TIME - (score * 6);
 			parent.addTime(addMs>150?addMs:150);
 			Log.d("TAG", ""+(parent.ADD_TIME - (score * 6)));
@@ -117,7 +110,6 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		}
 		else
 		{
-			//parent.setTimerColor(R.color.Red);
 			parent.removeTime(parent.REMOVE_TIME);
 		}
 	}
@@ -170,6 +162,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		((PixelTile)root.findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
 		((PixelTile)root.findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
 		((PixelTile)root.findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
+		((PixelTile)root.findViewById(R.id.textview_nextnextnextcolorview)).setColor(getResourceTargetPixel(3));
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------------------------------------

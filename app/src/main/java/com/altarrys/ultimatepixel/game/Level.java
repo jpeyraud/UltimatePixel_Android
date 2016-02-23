@@ -35,7 +35,7 @@ public class Level
 		m_game_difficulty = gameDifficulty;
 		m_nbPixelColorStart = nbPixelColor;
 		m_nbPixelColorTotal = m_nbPixelColorStart;
-		m_nbTargetPixel = 3;
+		m_nbTargetPixel = 4;
 		m_nbPixelColorScaleFactor = 30f;
 		m_colorStep = 0;
 

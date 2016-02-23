@@ -176,7 +176,7 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
         glBindTexture(GL_TEXTURE_2D, mTexture0Location);
 
         // Send time in ms
-        glUniform1f(mGlobalTimeLocation, ((float)((mStart-mCurrent)))/1000.0f);
+        glUniform1f(mGlobalTimeLocation, ((float)((mStart-mCurrent+10000f)))/1000.0f);
 
         // Send screen resolution
         glUniform2f(mResolutionLocation, mWidth, mHeight);
