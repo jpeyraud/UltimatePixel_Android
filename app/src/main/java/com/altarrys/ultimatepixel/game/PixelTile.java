@@ -22,11 +22,9 @@ public class PixelTile extends TextView {
     public int getColor() {
         return mColor;
     }
+
     public void setColor(int color) {
-        //if (this.getBackground() instanceof GradientDrawable)
-            ((GradientDrawable)this.getBackground()).setColor(color);
-        //else if (this.getBackground() instanceof ColorDrawable)
-        //    ((ColorDrawable)this.getBackground()).setColor(color);
+        ((GradientDrawable)this.getBackground()).setColor(color);
         this.mColor = color;
     }
 

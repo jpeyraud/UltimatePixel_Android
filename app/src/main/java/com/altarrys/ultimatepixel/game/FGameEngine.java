@@ -1,5 +1,6 @@
 package com.altarrys.ultimatepixel.game;
 
+import android.animation.Animator;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
@@ -11,7 +12,13 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -52,7 +59,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 
 		// Get the GridView and set the adapter to display more than one Button dynamically
 		m_pixelGridView = (GridView) rootView.findViewById(R.id.imagegridview);
-		PixelArrayAdapter adapter = new PixelArrayAdapter(getActivity(), R.id.Pixel , m_levelManager.getPixelList());
+		PixelArrayAdapter adapter = new PixelArrayAdapter(getActivity(), R.id.Pixel , m_levelManager.getPixelList(), m_pixelGridView);
 		m_pixelGridView.setAdapter(adapter);
 		m_pixelGridView.setOnTouchListener(this);
 
@@ -95,31 +102,64 @@ public class FGameEngine extends Fragment implements OnTouchListener
 
 		// if color of touched pixel  is the same as the target color, delete it
 		if (pixel.getColor() == getResourceTargetPixel()) {
-			// Replaced the touched pixel by a random color
-			pixel.setColor(getResources().getColor(m_levelManager.getRandomColor()));
+
+			Animation fadeOut = new AlphaAnimation(1, 0);
+			fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
+			fadeOut.setDuration(1000);
+			fadeOut.setAnimationListener(new ChangeColorAfterAnim(pixel));
+
+			// Animation to remove to current color and replace with a new random one
+			pixel.startAnimation(fadeOut);
+
+			// Update score
 			score = m_levelManager.pixelTouched();
 
 			// Modify pixel target color
 			setUpTargetView(getActivity().getWindow().getDecorView());
 
 			// Add time to timer
-			int addMs = parent.ADD_TIME - (score * 6);
-			parent.addTime(addMs>150?addMs:150);
-			Log.d("TAG", ""+(parent.ADD_TIME - (score * 6)));
-
+			parent.addTime(parent.ADD_TIME);
 		}
 		else
 		{
 			parent.removeTime(parent.REMOVE_TIME);
 		}
 	}
-	//-----------------------------------------------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public class ChangeColorAfterAnim implements Animation.AnimationListener
+	{
+		PixelTile mPixel;
+
+		public ChangeColorAfterAnim(PixelTile pixel) {
+			mPixel = pixel;
+		}
+
+		@Override
+		public void onAnimationStart(Animation animation) {
+
+		}
+
+		@Override
+		public void onAnimationEnd(Animation animation) {
+			// Replaced the touched pixel by a random color
+			mPixel.setColor(getResources().getColor(m_levelManager.getRandomColor()));
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {
+
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
 	// Inherit from "ArrayAdapter" to adapt the view to display many Buttons
     public class PixelArrayAdapter extends ArrayAdapter<Integer>
     {
-		public PixelArrayAdapter(Context context, int resource, List<Integer> objects) 
+		GridView mParent;
+
+		public PixelArrayAdapter(Context context, int resource, List<Integer> objects, GridView parent)
 		{
 			super(context, resource, objects);
+			mParent = parent;
 		}
 		
 		@Override
@@ -127,7 +167,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		{
 			// Get the Button at the provided position
 			Integer myPixel = getItem(position);
-			
+
 			View v;
 			
 			// Load the view only if one was not already loaded
@@ -141,6 +181,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			{
 				v=convertView;
 			}
+
 			return v;
 		}
     }
