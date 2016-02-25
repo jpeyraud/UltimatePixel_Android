@@ -1,11 +1,9 @@
 package com.altarrys.ultimatepixel.game;
 
-import android.animation.Animator;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,10 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -107,6 +102,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
 			fadeOut.setDuration(1000);
 			fadeOut.setAnimationListener(new ChangeColorAfterAnim(pixel));
+			fadeOut.setFillAfter(false);
 
 			// Animation to remove to current color and replace with a new random one
 			pixel.startAnimation(fadeOut);
@@ -129,6 +125,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	public class ChangeColorAfterAnim implements Animation.AnimationListener
 	{
 		PixelTile mPixel;
+		int nextColor;
 
 		public ChangeColorAfterAnim(PixelTile pixel) {
 			mPixel = pixel;
@@ -136,13 +133,15 @@ public class FGameEngine extends Fragment implements OnTouchListener
 
 		@Override
 		public void onAnimationStart(Animation animation) {
-
+			// set next random color at the start to avoid problem when click during the animation
+			nextColor = getResources().getColor(m_levelManager.getRandomColor());
+			mPixel.setColor(nextColor);
 		}
 
 		@Override
 		public void onAnimationEnd(Animation animation) {
-			// Replaced the touched pixel by a random color
-			mPixel.setColor(getResources().getColor(m_levelManager.getRandomColor()));
+			// Set color and update view
+			mPixel.updateColor(nextColor);
 		}
 
 		@Override
@@ -175,7 +174,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			{
 				v = LayoutInflater.from(getContext()).inflate(R.layout.pixel, null);
 				((GradientDrawable)v.getBackground()).setColor(getResources().getColor(myPixel));
-				((PixelTile)v).setColor(getResources().getColor(myPixel));
+				((PixelTile)v).updateColor(getResources().getColor(myPixel));
 			}
 			else
 			{
@@ -200,10 +199,10 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public void setUpTargetView(View root){
 		// Display targets color
-		((PixelTile)root.findViewById(R.id.textview_askedcolorview)).setColor(getResourceTargetPixel(0));
-		((PixelTile)root.findViewById(R.id.textview_nextcolorview)).setColor(getResourceTargetPixel(1));
-		((PixelTile)root.findViewById(R.id.textview_nextnextcolorview)).setColor(getResourceTargetPixel(2));
-		((PixelTile)root.findViewById(R.id.textview_nextnextnextcolorview)).setColor(getResourceTargetPixel(3));
+		((PixelTile)root.findViewById(R.id.textview_askedcolorview)).updateColor(getResourceTargetPixel(0));
+		((PixelTile)root.findViewById(R.id.textview_nextcolorview)).updateColor(getResourceTargetPixel(1));
+		((PixelTile)root.findViewById(R.id.textview_nextnextcolorview)).updateColor(getResourceTargetPixel(2));
+		((PixelTile)root.findViewById(R.id.textview_nextnextnextcolorview)).updateColor(getResourceTargetPixel(3));
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	//-----------------------------------------------------------------------------------------------------------------------------

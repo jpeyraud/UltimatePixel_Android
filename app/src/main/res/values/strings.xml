@@ -33,5 +33,6 @@
     <string name="signin_other_error">Google Play connexion error</string>
     <string name="app_id">979700654192</string>
     <string name="leaderboard_id">CgkI8MDW1cEcEAIQAA</string>
+    <string name="title_activity_ascore_screen">Score</string>
 
 </resources>

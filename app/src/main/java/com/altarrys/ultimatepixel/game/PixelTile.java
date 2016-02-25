@@ -23,10 +23,19 @@ public class PixelTile extends TextView {
         return mColor;
     }
 
-    public void setColor(int color) {
+    public void updateColor(int color) {
+        setColor(color);
+        setBackground(color);
+    }
+
+    public void setBackground(int color) {
         ((GradientDrawable)this.getBackground()).setColor(color);
+    }
+
+    public void setColor(int color) {
         this.mColor = color;
     }
+
 
 
 

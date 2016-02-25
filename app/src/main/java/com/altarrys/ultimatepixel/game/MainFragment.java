@@ -88,23 +88,29 @@ public class MainFragment extends Fragment implements View.OnTouchListener
         Log.d(TAG, "on press");
         if(event.getAction() == MotionEvent.ACTION_DOWN)
         {
-
+            if (v.getId() == R.id.playButton)
+            {
+                v.setBackgroundResource(R.drawable.buttonshapeplayclicked);
+            }
+            else if (v.getId() == R.id.ScoreButton)
+            {
+                v.setBackgroundResource(R.drawable.buttonshapescoreclicked);
+            }
         }
         else if (event.getAction() == MotionEvent.ACTION_UP)
         {
             if (v.getId() == R.id.playButton)
             {
+                v.setBackgroundResource(R.drawable.buttonshapeplay);
+
                 Intent intent = new Intent(getActivity(), AGameEngine.class);
-
-                // Add the index of the checked hardness to the intent
-                intent.putExtra("hardness", "hard");//((RadioGroup)getActivity().findViewById(R.id.Hardness)).getCheckedRadioButtonId());
-
                 startActivity(intent);
                 return true;
             }
             else if (v.getId() == R.id.ScoreButton)
             {
                 Log.v(TAG, "FRAG CHANGED");
+                v.setBackgroundResource(R.drawable.buttonshapescore);
                 //GoogleApiClient googleApi = ((MainActivity)getActivity()).getGoogleApiClient();
 
                 //if (googleApi.isConnected())

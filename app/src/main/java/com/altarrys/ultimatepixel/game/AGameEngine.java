@@ -170,15 +170,16 @@ public class AGameEngine extends Activity
 				if (updatedTime < 0.0) {
 
 					m_timer.setText(getTimeString(0));
-					// save m_score
-					//GE.save(HARDNESS, ""+GE.getScore());
 
-					DFVictoryScore dfVic = new DFVictoryScore();
-					dfVic.setScore(GE.getScore());
-			    	dfVic.show(GE.getFragmentManager(), "id");
+					// Stop Timer Thread
+					GE.stopTimer();
 
-		    		// Stop Timer Thread
-		    		GE.stopTimer();
+					// Go to score screen
+					Intent intent = new Intent(GE, AScoreScreen.class);
+					startActivity(intent);
+
+					// exit current activity
+					GE.finish();
 				}
 				else {
 					m_timer.setText(getTimeString(updatedTime));
