@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.altarrys.ultimatepixel.R;
-import com.altarrys.ultimatepixel.opengl.MenuGLSurface;
+import com.altarrys.ultimatepixel.opengl.GLBackground;
 
 /**
  * Created by jpeyraux on 20/02/2016.
@@ -21,7 +21,7 @@ public class MainFragment extends Fragment implements View.OnTouchListener
 {
     private static final String TAG = "MainFragment";
 
-    private MenuGLSurface mGlMenuBackground;
+    private GLBackground mGlMenuBackground;
 
     private DFChangeGLBackground mDFChangeBackground;
 
@@ -42,7 +42,7 @@ public class MainFragment extends Fragment implements View.OnTouchListener
         mDFChangeBackground.setFragment(this);
 
         // Add opengl background
-        mGlMenuBackground = new MenuGLSurface(this.getActivity(), R.raw.cubes_frag_shader);
+        mGlMenuBackground = new GLBackground(this.getActivity(), R.raw.cubes_frag_shader);
         ((FrameLayout)rootView.findViewById(R.id.main_fragment_framelayout)).addView(mGlMenuBackground,0);
 
         // Set OnClickListener for all buttons

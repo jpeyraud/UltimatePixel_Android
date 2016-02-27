@@ -2,7 +2,6 @@ package com.altarrys.ultimatepixel.opengl;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.util.AttributeSet;
 import android.util.Log;
 
 import com.altarrys.ultimatepixel.R;
@@ -21,7 +20,7 @@ import static com.altarrys.ultimatepixel.opengl.OpenGLHelper.*;
 /**
  * Created by jpeyraux on 11/02/2016.
  */
-public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Renderer {
+public class GLBackground extends GLSurfaceView implements GLSurfaceView.Renderer {
 
 
     private static final String TAG = "MenuGLSurface";
@@ -52,29 +51,37 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
     double mCurrent;
     double mPrevious;
 
+    //Program
     int glCurrentProgram;
     int glProgram;
     int glProgramHighFps;
 
+    //Location
     private int mVerticesLocation;
     private int mResolutionLocation;
     private int mGlobalTimeLocation;
     private int mTexture0Location;
+    private int mProgressLocation;
+
+    //Other values
+    float mProgress;
 
 
     //-----------------------------------------------------------------------------------------------------------------------------
-    public MenuGLSurface(Context context, int fragShader) {
+    public GLBackground(Context context, int fragShader) {
         super(context);
+
+        mProgress = 0.0f;
 
         // Shader ID
         mVertexShaderID = R.raw.basic_vertex_shader;
-        mFragShaderID = R.raw.cubes_frag_shader;
+        mFragShaderID = fragShader;
         mFragShaderHighFpsID = R.raw.color_circle_frag_shader;
 
-        MenuGLSurfaceInit();
+        GLBackgroundInit();
     }
     //-----------------------------------------------------------------------------------------------------------------------------
-    public void MenuGLSurfaceInit() {
+    public void GLBackgroundInit() {
         // Create an OpenGL ES 2.0 context
         this.setEGLContextClientVersion(2);
         this.setRenderer(this);
@@ -93,6 +100,10 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
         for (Double d : mFps)
             fps+= d;
         return fps/30.0;
+    }
+    //-----------------------------------------------------------------------------------------------------------------------------
+    public void setProgress(float progress){
+        mProgress = progress;
     }
     //-----------------------------------------------------------------------------------------------------------------------------
     public void useHighFpsShader(){
@@ -130,7 +141,7 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
         checkGLError("Gl program");
 
         // Texture
-        mTexture0Location = OpenGLHelper.loadTexture(getContext(), R.drawable.hell, GL_NEAREST, GL_REPEAT);
+        mTexture0Location = OpenGLHelper.loadTexture(getContext(), R.drawable.random2, GL_NEAREST, GL_REPEAT);
         checkGLError("Surface created");
     }
     //-----------------------------------------------------------------------------------------------------------------------------
@@ -160,6 +171,7 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
         mVerticesLocation = glGetAttribLocation(glCurrentProgram, "a_Position");
         mResolutionLocation = glGetUniformLocation(glCurrentProgram, "iResolution");
         mGlobalTimeLocation = glGetUniformLocation(glCurrentProgram, "iGlobalTime");
+        mProgressLocation = glGetUniformLocation(glCurrentProgram, "u_Progress");
 
         // Enable vertex array
         glEnableVertexAttribArray(mVerticesLocation);
@@ -168,6 +180,7 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
         mPrevious = mCurrent;
         mCurrent = System.currentTimeMillis();
         mFps.add(1.0 / (mCurrent - mPrevious) * 1000.0);
+        Log.d(TAG, ""+1.0 / (mCurrent - mPrevious) * 1000.0);
         if (mFps.size() > 30)
             mFps.remove(mFps.size()-1);
 
@@ -176,7 +189,10 @@ public class MenuGLSurface extends GLSurfaceView implements GLSurfaceView.Render
         glBindTexture(GL_TEXTURE_2D, mTexture0Location);
 
         // Send time in ms
-        glUniform1f(mGlobalTimeLocation, ((float)((mStart-mCurrent+10000f)))/1000.0f);
+        glUniform1f(mGlobalTimeLocation, ((float)((mCurrent-mStart+10000f)))/1000.0f);
+
+        // Send Progress between 0 and 1
+        glUniform1f(mProgressLocation, mProgress);
 
         // Send screen resolution
         glUniform2f(mResolutionLocation, mWidth, mHeight);

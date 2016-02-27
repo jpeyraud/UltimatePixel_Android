@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.altarrys.ultimatepixel.R;
 
@@ -15,18 +17,20 @@ import java.util.List;
 public class AScoreScreen extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score_screen);
-    }
 
-    public void backToMenu(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        setContentView(R.layout.activity_score_screen);
+
+        if (savedInstanceState == null)
+        {
+            getFragmentManager().beginTransaction().add(R.id.container, new FScoreScreen()).commit();
+        }
     }
 
     public void shareOnFacebook(View view) {
-        String urlToShare = "OMG";
+        String urlToShare = "OMG: ww";
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         // intent.putExtra(Intent.EXTRA_SUBJECT, "Foo bar"); // NB: has no effect!
@@ -77,11 +81,22 @@ public class AScoreScreen extends Activity {
         startActivity(intent);
     }
 
-    public void shareOnGooglePlus(View view) {
+    public void share(View view) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "The status update text");
-        startActivity(Intent.createChooser(intent, "Dialog title text"));
+        intent.putExtra(Intent.EXTRA_TEXT, "I got score of XXX by playing Pixel Fury");
+        startActivity(Intent.createChooser(intent, "Pixel furing share your score"));
     }
 
+    public void retry(View view) {
+        Intent intent = new Intent(this, AGameEngine.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    public void backToMenu(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
 }

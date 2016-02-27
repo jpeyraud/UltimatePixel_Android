@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.altarrys.ultimatepixel.game.MainActivity">
 
-    <!--<com.altarrys.ultimatepixel.opengl.MenuGLSurface
-        android:id="@+id/menuglsurface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
 
     </FrameLayout>
 

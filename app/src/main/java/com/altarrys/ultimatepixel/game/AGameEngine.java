@@ -44,7 +44,7 @@ public class AGameEngine extends Activity
 		HARDNESS = "hard";
 		m_colorNumber = 3;
 		m_pixelLineNumber = 5;
-		m_levelManager = new Level(Level.NORMAL_MODE, m_colorNumber, m_pixelLineNumber);
+		m_levelManager = new Level(m_colorNumber, m_pixelLineNumber);
 
 		if (savedInstanceState == null) 
 		{

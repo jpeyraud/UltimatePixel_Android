@@ -102,8 +102,8 @@ float ease(float t){
 vec3 getColor(vec2 pos){
 
     vec2 uv = pos.xy / iResolution.xy;
-    uv*=2.0;
-    uv-=1.0;
+    uv*=3.0;
+    uv-=1.5;
     uv.x*=iResolution.x/iResolution.y;
 
     /*vec2 R = iResolution.xy,

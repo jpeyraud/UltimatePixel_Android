@@ -9,12 +9,8 @@ import java.util.HashMap;
 
 public class Level 
 {
-	public static int NORMAL_MODE = 1;
-	public static int HARD_MODE = 2;
-	public static int EXTREME_MODE = 3;
-	
-	
-	private int m_game_difficulty;
+	private static final float SCORE_STREAK_MAX = 50;
+
 	private ArrayList<Integer> m_targetPixels;
 	private int m_nbTargetPixel;
 	private ArrayList<Integer> m_pixelList;
@@ -27,12 +23,12 @@ public class Level
 	private int m_arcadePerCent = 50;
 
 	public int m_score;
+	public int m_lastFail;
 
 	//-----------------------------------------------------------------------------------------------------------------------------
-	public Level(int gameDifficulty, int nbPixelColor, int nbPixelLine)
+	public Level(int nbPixelColor, int nbPixelLine)
 	{
 		// Init Level properties
-		m_game_difficulty = gameDifficulty;
 		m_nbPixelColorStart = nbPixelColor;
 		m_nbPixelColorTotal = m_nbPixelColorStart;
 		m_nbTargetPixel = 4;
@@ -145,6 +141,16 @@ public class Level
     {
     	return m_score;
     }
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public void setLastFail() {
+		m_lastFail = m_score;
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public float getStreakProgress() {
+		// background shader progress
+		float streak = ((float)m_score-m_lastFail)/SCORE_STREAK_MAX;
+		return ( streak < 1f) ? streak : 1f;
+	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public void initColors()
 	{

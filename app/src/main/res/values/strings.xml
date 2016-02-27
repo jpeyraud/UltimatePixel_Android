@@ -17,6 +17,10 @@
     <string name="dfchangebackground">Change Background</string>
     <string name="dfkeepbackground">Keep Background</string>
     <string name="Score">Score</string>
+    <string name="Share">Share</string>
+    <string name="Retry">Retry</string>
+    <string name="Menu">Menu</string>
+    <string name="ScoreFinal">Your score is:</string>
     <string name="Exit">Exit</string>
     <string name="Normal">Normal</string>
     <string name="Hard">Hard</string>

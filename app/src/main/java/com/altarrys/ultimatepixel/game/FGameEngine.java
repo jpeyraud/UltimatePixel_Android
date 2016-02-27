@@ -14,11 +14,12 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.altarrys.ultimatepixel.R;
-import com.altarrys.ultimatepixel.opengl.MenuGLSurface;
+import com.altarrys.ultimatepixel.opengl.GLBackground;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	private Level m_levelManager;
 	private boolean m_isStarted;
 	private AGameEngine parent;
-	private MenuGLSurface mGlMenuBackground;
+	private GLBackground mGlBackground;
 
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public FGameEngine()
@@ -63,9 +64,26 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		// Set timer textview in activity attributes to set the timer of the game in a thread later
 		parent.setTimer((TextView) rootView.findViewById(R.id.textview_timeelapsed));
 
-		((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText(""+AGameEngine.TIME_TOT/1000+":00");
+		((TextView)rootView.findViewById(R.id.textview_timeelapsed)).setText("" + AGameEngine.TIME_TOT / 1000 + ":00");
+
+		// set Up GLBackgound
+		mGlBackground = new GLBackground(getActivity(), R.raw.fire_frag_shader);
+		((FrameLayout) rootView.findViewById(R.id.gameengimelayout)).addView(mGlBackground, 0);
 
 		return rootView;
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------
+	@Override
+	public void onPause() {
+		super.onPause();
+		mGlBackground.onPause();
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	@Override
+	public void onResume() {
+		super.onResume();
+		mGlBackground.onResume();
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Override
@@ -118,8 +136,12 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		}
 		else
 		{
+			m_levelManager.setLastFail();
 			parent.removeTime(parent.REMOVE_TIME);
 		}
+
+		// Set background shader progress
+		mGlBackground.setProgress(m_levelManager.getStreakProgress());
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public class ChangeColorAfterAnim implements Animation.AnimationListener
