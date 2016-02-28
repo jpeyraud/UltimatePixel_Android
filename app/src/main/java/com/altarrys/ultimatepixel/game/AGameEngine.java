@@ -14,7 +14,7 @@ import com.altarrys.ultimatepixel.R;
 public class AGameEngine extends Activity 
 {
 	public static long TIME_TOT = 10000;
-	public static int ADD_TIME = 350;
+	public static int ADD_TIME = 450;
 	public static int REMOVE_TIME = 1000;
 	public static String HARDNESS = "";
 	

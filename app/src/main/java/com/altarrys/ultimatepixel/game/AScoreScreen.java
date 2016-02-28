@@ -84,7 +84,7 @@ public class AScoreScreen extends Activity {
     public void share(View view) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "I got score of XXX by playing Pixel Fury");
+        intent.putExtra(Intent.EXTRA_TEXT, "I got a score of XXX by playing Pixel Fury");
         startActivity(Intent.createChooser(intent, "Pixel furing share your score"));
     }
 

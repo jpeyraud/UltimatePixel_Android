@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -117,7 +118,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		if (pixel.getColor() == getResourceTargetPixel()) {
 
 			Animation fadeOut = new AlphaAnimation(1, 0);
-			fadeOut.setInterpolator(new AccelerateInterpolator()); //and this
+			fadeOut.setInterpolator(new DecelerateInterpolator()); //and this
 			fadeOut.setDuration(1000);
 			fadeOut.setAnimationListener(new ChangeColorAfterAnim(pixel));
 			fadeOut.setFillAfter(false);
@@ -195,7 +196,7 @@ public class FGameEngine extends Fragment implements OnTouchListener
 			if (convertView == null) 
 			{
 				v = LayoutInflater.from(getContext()).inflate(R.layout.pixel, null);
-				((GradientDrawable)v.getBackground()).setColor(getResources().getColor(myPixel));
+				//((GradientDrawable)v.getBackground()).setColor(getResources().getColor(myPixel));
 				((PixelTile)v).updateColor(getResources().getColor(myPixel));
 			}
 			else

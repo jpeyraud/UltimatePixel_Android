@@ -7,7 +7,7 @@
     android:layout_margin="4dp"
     android:height="70dp"
     android:width="70dp"
-    android:background="@drawable/pixel_tile"
+    android:background="@drawable/full_tile"
     >
     
 

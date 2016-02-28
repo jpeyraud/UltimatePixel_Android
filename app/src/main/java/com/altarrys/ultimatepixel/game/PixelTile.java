@@ -3,10 +3,17 @@ package com.altarrys.ultimatepixel.game;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.TextView;
+
+import com.altarrys.ultimatepixel.R;
 
 /**
  * Created by jpeyraux on 21/02/2016.
@@ -29,7 +36,9 @@ public class PixelTile extends TextView {
     }
 
     public void setBackground(int color) {
-        ((GradientDrawable)this.getBackground()).setColor(color);
+        LayerDrawable layers = (LayerDrawable) getBackground();
+        GradientDrawable shape = (GradientDrawable) (layers.findDrawableByLayerId(R.id.pixelTileItem));
+        shape.setColor(color);
     }
 
     public void setColor(int color) {

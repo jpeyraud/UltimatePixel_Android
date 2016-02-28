@@ -10,7 +10,7 @@ uniform float u_Progress;
 #define SPEED 12.0
 #define DISPLACEMENT 0.2
 #define TIGHTNESS 5.0
-#define YOFFSET 0.0
+#define YOFFSET 0.8
 #define YSCALE 0.8
 #define FLAMETONE vec3(50.0, 5.0, 1.0)
 
@@ -36,7 +36,7 @@ float noise( vec3 x )
 
 float shape(in vec2 pos) // a blob shape to distord
 {
-    return clamp( sin(pos.x*3.1416) - pos.y+(u_Progress-0.5), 0.0, 1.0 );
+    return clamp( sin(pos.x*3.1416) - pos.y+(u_Progress-YOFFSET), 0.0, 1.0 );
 }
 
 vec4 mainImage( in vec2 fragCoord )
