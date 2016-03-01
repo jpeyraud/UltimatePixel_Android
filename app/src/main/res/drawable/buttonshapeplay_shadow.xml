@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- over left shadow -->
+    <item
+        android:top="@dimen/ButtonShadowShift"
+        android:bottom="0dp">
+        <shape >
+            <corners
+                android:topLeftRadius="18dp"
+                android:topRightRadius="90dp"
+                android:bottomLeftRadius="90dp"
+                android:bottomRightRadius="18dp"
+                />
+            <size
+                android:width="270dp"
+                android:height="60dp"
+                />
+            <gradient
+                android:angle="180"
+                android:centerColor="@color/DarkPixelTileShadow"
+                android:centerX="0.5"
+                android:endColor="@color/LightPixelTileShadow"
+                android:startColor="@color/DarkPixelTileShadow" />
+        </shape>
+    </item>
+    <!-- over right shadow -->
+    <item
+        android:top="@dimen/ButtonShadowShift"
+        android:bottom="0dp">
+        <shape  >
+            <corners
+                android:topLeftRadius="18dp"
+                android:topRightRadius="90dp"
+                android:bottomLeftRadius="90dp"
+                android:bottomRightRadius="18dp"
+                />
+            <size
+                android:width="270dp"
+                android:height="60dp"
+                />
+            <gradient
+                android:angle="360"
+                android:centerColor="@color/DarkPixelTileShadow"
+                android:centerX="0.5"
+                android:endColor="@color/LightPixelTileShadow"
+                android:startColor="@color/DarkPixelTileShadow" />
+        </shape>
+    </item>
+    <!-- over top shadow -->
+    <item
+        android:top="@dimen/ButtonShadowShift"
+        android:bottom="0dp">
+        <shape  >
+            <corners
+                android:topLeftRadius="18dp"
+                android:topRightRadius="90dp"
+                android:bottomLeftRadius="90dp"
+                android:bottomRightRadius="18dp"
+                />
+            <size
+                android:width="270dp"
+                android:height="60dp"
+                />
+            <gradient
+                android:angle="-90"
+                android:centerColor="@color/DarkPixelTileShadow"
+                android:centerY="0.5"
+                android:endColor="@color/DarkPixelTileShadow"
+                android:startColor="@color/LightPixelTileShadow"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- over bottom shadow -->
+    <item
+        android:top="@dimen/ButtonShadowShift"
+        android:bottom="0dp">
+        <shape  >
+            <corners
+                android:topLeftRadius="18dp"
+                android:topRightRadius="90dp"
+                android:bottomLeftRadius="90dp"
+                android:bottomRightRadius="18dp"
+                />
+            <size
+                android:width="270dp"
+                android:height="60dp"
+                />
+            <gradient
+                android:angle="90"
+                android:centerColor="@color/DarkPixelTileShadow"
+                android:centerY="0.5"
+                android:endColor="@color/DarkPixelTileShadow"
+                android:startColor="@color/LightPixelTileShadow"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item
+        android:id="@+id/ButtonItem"
+        android:drawable="@drawable/buttonshapeplay"
+        android:top="0dp"
+        android:bottom="@dimen/ButtonShadowShift">
+    </item>
+</layer-list>
+

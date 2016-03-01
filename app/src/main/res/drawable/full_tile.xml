@@ -8,10 +8,10 @@
         <shape android:shape="rectangle">
             <gradient
                 android:angle="180"
-                android:centerColor="#00666666"
+                android:centerColor="@color/LightPixelTileShadow"
                 android:centerX="0.8"
-                android:endColor="#70000000"
-                android:startColor="#00666666" />
+                android:endColor="@color/DarkPixelTileShadow"
+                android:startColor="@color/LightPixelTileShadow" />
             <corners android:radius="8dp" />
         </shape>
     </item>
@@ -20,10 +20,10 @@
         <shape android:shape="rectangle">
             <gradient
                 android:angle="360"
-                android:centerColor="#00666666"
+                android:centerColor="@color/LightPixelTileShadow"
                 android:centerX="0.8"
-                android:endColor="#70000000"
-                android:startColor="#00666666" />
+                android:endColor="@color/DarkPixelTileShadow"
+                android:startColor="@color/LightPixelTileShadow" />
             <corners android:radius="8dp" />
         </shape>
     </item>
@@ -32,10 +32,10 @@
         <shape android:shape="rectangle">
             <gradient
                 android:angle="-90"
-                android:centerColor="#00666666"
+                android:centerColor="@color/LightPixelTileShadow"
                 android:centerY="0.98"
-                android:endColor="#00666666"
-                android:startColor="#70000000"
+                android:endColor="@color/LightPixelTileShadow"
+                android:startColor="@color/DarkPixelTileShadow"
                 android:type="linear" />
             <corners android:radius="8dp" />
         </shape>
@@ -45,10 +45,10 @@
         <shape android:shape="rectangle">
             <gradient
                 android:angle="90"
-                android:centerColor="#00666666"
+                android:centerColor="@color/LightPixelTileShadow"
                 android:centerY="0.98"
-                android:endColor="#00666666"
-                android:startColor="#70000000"
+                android:endColor="@color/LightPixelTileShadow"
+                android:startColor="@color/DarkPixelTileShadow"
                 android:type="linear" />
             <corners android:radius="8dp" />
         </shape>

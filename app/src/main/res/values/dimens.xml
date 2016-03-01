@@ -5,6 +5,6 @@
     <dimen name="activity_vertical_margin">6dp</dimen>
     <dimen name="medium_font">26sp</dimen>
     <dimen name="button_radius">60dp</dimen>
-    <dimen name="stroke_width">3dip</dimen>
+    <dimen name="ButtonShadowShift">6dip</dimen>
 
 </resources>

@@ -11,7 +11,7 @@
     android:background="@color/Black"
     tools:context="com.altarrys.ultimatepixel.game.AGameEngine$PlaceholderFragment" >
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -21,89 +21,79 @@
         android:layout_marginBottom="6dp"
         tools:context="com.example.ultimatepixel.AGameEngine$PlaceholderFragment" >
 
-        <TextView
-            android:id="@+id/textview_askedcolor"
-            android:gravity="center"
-            android:layout_gravity="center"
+        <FrameLayout
+            android:id="@+id/layout_askedcolorview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:paddingLeft="10dp"
-            android:text="@string/askedColor"
-            android:textColor="@color/White">
-        </TextView>
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/target_background">
 
-        <com.altarrys.ultimatepixel.game.PixelTile
-            android:id="@+id/textview_askedcolorview"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="@drawable/full_tile"
-            android:height="65dp"
-            android:width="65dp" >
-        </com.altarrys.ultimatepixel.game.PixelTile>
+            <com.altarrys.ultimatepixel.game.PixelTile
+                android:id="@+id/textview_askedcolorview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/full_tile"
+                android:height="65dp"
+                android:width="65dp"
+                android:layout_centerVertical="true">
+            </com.altarrys.ultimatepixel.game.PixelTile>
+
+        </FrameLayout>
 
         <com.altarrys.ultimatepixel.game.PixelTile
             android:id="@+id/textview_nextcolorview"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:background="@drawable/full_tile"
             android:height="40dp"
-            android:width="40dp" >
+            android:width="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/layout_askedcolorview">
         </com.altarrys.ultimatepixel.game.PixelTile>
 
         <com.altarrys.ultimatepixel.game.PixelTile
             android:id="@+id/textview_nextnextcolorview"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:background="@drawable/full_tile"
             android:height="40dp"
-            android:width="40dp" >
+            android:width="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textview_nextcolorview">
         </com.altarrys.ultimatepixel.game.PixelTile>
 
         <com.altarrys.ultimatepixel.game.PixelTile
             android:id="@+id/textview_nextnextnextcolorview"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:background="@drawable/full_tile"
             android:height="40dp"
-            android:width="40dp" >
+            android:width="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textview_nextnextcolorview">
         </com.altarrys.ultimatepixel.game.PixelTile>
 
         <TextView
             android:id="@+id/textview_timeelapsed"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:text="@string/timeelapsedzero"
-            android:textColor="@color/White">
+            android:textColor="@color/White"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/textview_nextnextnextcolorview">
         </TextView>
 
-        <TextView
-            android:id="@+id/textview_timemodification"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text=""
-            android:textColor="@color/Green">
-        </TextView>
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
 
     <GridView

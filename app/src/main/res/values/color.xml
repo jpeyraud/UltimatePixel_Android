@@ -28,6 +28,18 @@
     <color name="Blue3">#000088</color>
     <color name="Blue4">#000055</color>
     <color name="Blue5">#000033</color>
-    
+
+    <color name="LightPixelTileShadow">#00666666</color>
+    <color name="DarkPixelTileShadow">#70000000</color>
+    <color name="LightButtonShadow">#00666666</color>
+    <color name="DarkButtonShadow">#70000000</color>
+
+    <color name="LightButtonGradiant">#828282</color>
+    <color name="DarkButtonGradiant">#323232</color>
+    <color name="LightButtonGradiantClicked">#AAAAAA</color>
+    <color name="DarkButtonGradiantClicked">#222266</color>
+    <color name="StrokeButton">#000000</color>
+    <color name="StrokeTargetLayoutStroke">#000000</color>
+
     
 </resources>

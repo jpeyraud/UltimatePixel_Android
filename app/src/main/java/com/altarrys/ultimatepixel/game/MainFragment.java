@@ -90,18 +90,18 @@ public class MainFragment extends Fragment implements View.OnTouchListener
         {
             if (v.getId() == R.id.playButton)
             {
-                v.setBackgroundResource(R.drawable.buttonshapeplayclicked);
+                v.setBackgroundResource(R.drawable.buttonshapeplayclicked_shadow);
             }
             else if (v.getId() == R.id.ScoreButton)
             {
-                v.setBackgroundResource(R.drawable.buttonshapescoreclicked);
+                v.setBackgroundResource(R.drawable.buttonshapeplayclicked_shadow);
             }
         }
         else if (event.getAction() == MotionEvent.ACTION_UP)
         {
             if (v.getId() == R.id.playButton)
             {
-                v.setBackgroundResource(R.drawable.buttonshapeplay);
+                v.setBackgroundResource(R.drawable.buttonshapeplay_shadow);
 
                 Intent intent = new Intent(getActivity(), AGameEngine.class);
                 startActivity(intent);
@@ -110,7 +110,7 @@ public class MainFragment extends Fragment implements View.OnTouchListener
             else if (v.getId() == R.id.ScoreButton)
             {
                 Log.v(TAG, "FRAG CHANGED");
-                v.setBackgroundResource(R.drawable.buttonshapescore);
+                v.setBackgroundResource(R.drawable.buttonshapeplay_shadow);
                 //GoogleApiClient googleApi = ((MainActivity)getActivity()).getGoogleApiClient();
 
                 //if (googleApi.isConnected())
