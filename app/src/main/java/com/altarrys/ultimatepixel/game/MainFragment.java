@@ -42,7 +42,7 @@ public class MainFragment extends Fragment implements View.OnTouchListener
         mDFChangeBackground.setFragment(this);
 
         // Add opengl background
-        mGlMenuBackground = new GLBackground(this.getActivity(), R.raw.cubes_frag_shader);
+        mGlMenuBackground = new GLBackground(this.getActivity(), R.raw.square_frag_shader);
         ((FrameLayout)rootView.findViewById(R.id.main_fragment_framelayout)).addView(mGlMenuBackground,0);
 
         // Set OnClickListener for all buttons

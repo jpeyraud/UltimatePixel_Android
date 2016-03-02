@@ -12,6 +12,7 @@
     tools:context="com.altarrys.ultimatepixel.game.AGameEngine$PlaceholderFragment" >
     
     <RelativeLayout
+        android:id="@+id/layout_targetlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

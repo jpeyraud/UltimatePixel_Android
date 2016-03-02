@@ -100,7 +100,7 @@
     <!-- Background -->
     <item
         android:id="@+id/ButtonItem"
-        android:drawable="@drawable/buttonshapeplay"
+        android:drawable="@drawable/buttonshapeplayclicked"
         android:top="@dimen/ButtonShadowShift"
         android:bottom="1dp">
     </item>

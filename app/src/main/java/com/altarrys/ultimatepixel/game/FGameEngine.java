@@ -17,6 +17,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 import com.altarrys.ultimatepixel.R;
@@ -34,6 +36,8 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	private boolean m_isStarted;
 	private AGameEngine parent;
 	private GLBackground mGlBackground;
+	private RelativeLayout mTargetLayout;
+	private int mTimerModifId;
 
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public FGameEngine()
@@ -50,6 +54,8 @@ public class FGameEngine extends Fragment implements OnTouchListener
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 	{
 		View rootView = inflater.inflate(R.layout.fragment_game_engine,	container, false);
+
+		mTargetLayout = (RelativeLayout) rootView.findViewById(R.id.layout_targetlist);
 
 		// Put the parent activity in Attribute
 		parent = ((AGameEngine)getActivity());
@@ -70,6 +76,8 @@ public class FGameEngine extends Fragment implements OnTouchListener
 		// set Up GLBackgound
 		mGlBackground = new GLBackground(getActivity(), R.raw.fire_frag_shader);
 		((FrameLayout) rootView.findViewById(R.id.gameengimelayout)).addView(mGlBackground, 0);
+
+		mTimerModifId = View.generateViewId();
 
 		return rootView;
 	}
@@ -134,15 +142,51 @@ public class FGameEngine extends Fragment implements OnTouchListener
 
 			// Add time to timer
 			parent.addTime(parent.ADD_TIME);
+
+			// Show the timer modif in green to the user
+			addTimerModifView(true);
 		}
 		else
 		{
 			m_levelManager.setLastFail();
 			parent.removeTime(parent.REMOVE_TIME);
+
+			// Show the timer modif in red to the user
+			addTimerModifView(false);
 		}
 
 		// Set background shader progress
 		mGlBackground.setProgress(m_levelManager.getStreakProgress());
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------
+	public void addTimerModifView(boolean add) {
+
+		View lastView = parent.findViewById(mTimerModifId);
+
+		if(lastView != null)
+			mTargetLayout.removeViewInLayout(lastView);
+
+		TextView text = new TextView(parent);
+
+		RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.WRAP_CONTENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		param.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+		param.addRule(RelativeLayout.RIGHT_OF, R.id.textview_timeelapsed);
+		text.setLayoutParams(param);
+		text.setId(mTimerModifId);
+
+		if (add) {
+			text.setTextColor(getResources().getColor(R.color.Green));
+			text.setText("+1");
+
+		}
+		else {
+			text.setTextColor(getResources().getColor(R.color.Red));
+			text.setText("-1");
+		}
+
+		mTargetLayout.addView(text);
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------
 	public class ChangeColorAfterAnim implements Animation.AnimationListener
