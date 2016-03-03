@@ -29,18 +29,10 @@ vec4 mainImage (in vec2 fragCoord) {
     //frag *= 2.0 - 0.4 * cos (frag.yx) * sin (3.14159 * 0.5 * iGlobalTime);
 
     // New big one
-    vec2 p = (2.0*fragCoord.xy-iResolution.xy)/iResolution.y;
-    float tau = 3.1415926535*2.0;
-    float a = atan(p.x,p.y);
-    float r = length(p);
-    vec2 uv = vec2(a/tau,r);
-    float beamWidth = (cos(uv.x*12.0*tau*1.0*clamp(sin(iGlobalTime), 0.0, 10.0))) * abs(1.0 / (30.0 * uv.y));
-    vec3 horBeam = vec3(beamWidth);
-
-    frag *= 2.28 - 1.5 * horBeam.xy;
+   // frag *= 2.28 - 1.5 * horBeam.xy;
 
     // Other
-    frag *= 5.0;
+    frag *= 9.8;
     float random = rand (floor (frag));
 
     // square
